@@ -1,6 +1,8 @@
 #include "Xbox360.h"
 #include <iostream>
+
 using std::cout;
+
 Xbox360::Xbox360()
 {
     onoff = false;

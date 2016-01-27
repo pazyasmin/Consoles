@@ -18,4 +18,3 @@ public:
 };
 
 #endif // XBOX360_H
-//
