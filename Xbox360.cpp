@@ -5,9 +5,9 @@ Xbox360::Xbox360()
 {
     onoff = false;
     kinect_onoff = false;
-    hd = 120.00; 
+    hd = 120.00;
     versao = 1.0;
-    coord_xyz[3] = { 0,0,0 }; 
+    coord_xyz[3] = { 0,0,0 };
 }
 
 Xbox360::~Xbox360()
@@ -22,12 +22,12 @@ void Xbox360::power_on_off( )
         cout << "*Aparelho liga*\n";
     }
     else
-        cout << "*Aparelho reseta*\n";    
+        cout << "*Aparelho reseta*\n";
 }
 
 
 
-void Xbox360::kinect_on_off( ) 
+void Xbox360::kinect_on_off( )
 {
     if( kinect_onoff )
         cout << "*Kinect liga*\n";
@@ -42,9 +42,9 @@ void Xbox360::instalar_jogo()
         hd -= 10.00; //para simplificar, considera-se que cada jogo ocupe 10GB
         cout << "O jogo foi instalado com sucesso.\n"
              << "Espaco livre: " << hd << " GB \n";
-        
+
     }
-    else 
+    else
          cout << "Nao ha espaco suficiente.\n";
 }
 
@@ -56,7 +56,7 @@ void Xbox360::desinstalar_jogo()
         cout << "O jogo foi desinstalado com sucesso.\n"
              << "Espaco livre " << hd << " GB \n";
     }
-    else 
+    else
          cout << "Nao ha jogos a serem desinstalados.\n";
 }
 
@@ -68,5 +68,5 @@ void Xbox360::exibe_info()
     if (kinect_onoff)
         cout << "Kinect ligado.\n";
     else
-        cout << "Kinect desligado\n";    
+        cout << "Kinect desligado\n";
 }
