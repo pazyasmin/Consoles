@@ -11,7 +11,7 @@ Xbox360::Xbox360()
     version = 1.0;
     coord_xyz[3] = { 0,0,0 };
         for(int i = 0; i < 5; i++)
-        listaUsuarios[i] = "---"; 
+            usuarios[i] = "---"; 
     
 }
 
