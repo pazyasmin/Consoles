@@ -3,16 +3,28 @@
 
 using std::cout;
 
+int Xbox360::version = "XBOX360.1.0";
+
 Xbox360::Xbox360()
 {
     onoff = false;
     kinect_onoff = false;
     availableStorage = 120.00;
-    version = 1.0;
-    coord_xyz[3] = { 0,0,0 };
         for(int i = 0; i < 5; i++)
-            usuarios[i] = "---"; 
+            usuarios[5] = "---"; 
     
+}
+
+Xbox360::Xbox360(const Xbox360 &x)
+{
+    availableStorage = x.availableStorage;
+    coord_xyz = x.coord_xyz;
+    onoff = x.onoff;
+    kinect_onoff = x.kinect_onoff;
+    for (i = 0; i < NUMUSER; i++)
+    {
+        usuarios[i] = x.usuarios[i];
+    }
 }
 
 Xbox360::~Xbox360()
@@ -24,7 +36,7 @@ void Xbox360::power_on_off( )
 {
     if ( !onoff )
     {
-        power_on_off = true;
+        onoff = true;
         cout << "*Console liga*\n";
     }
     else
@@ -34,9 +46,15 @@ void Xbox360::power_on_off( )
 void Xbox360::kinect_on_off( )
 {
     if( kinect_onoff )
+    {
+        kinect_onoff = true;
         cout << "*Kinect liga*\n";
+    }
     else
+    {
+        kinect_onoff = false;
         cout << "*Kinect desliga*.\n";
+    }
 }
 
 void Xbox360::instalar_jogo()
@@ -67,7 +85,7 @@ void Xbox360::desinstalar_jogo()
 void Xbox360::exibe_info() 
 {
     cout << "Informacoes de Sistema:\n";
-    cout << "Xbox360 versao "<< versao <<".\n";
+    cout << "Xbox360 versao "<< version <<".\n";
     cout << "Espaco livre: "<< availableStorage <<" GB.\n";
     if (kinect_onoff)
         cout << "Kinect ligado.\n";
@@ -80,7 +98,7 @@ void Xbox360::cadastrar_usuario( string newUser, int indice)
     if (onoff)
     {
         if( indice >= 0 && indice < 5)
-            listaUsuarios[indice] = newUser;
+            usuarios[indice] = newUser;
         else
             cout << "Nao pode ser cadastrado.\n";
     }

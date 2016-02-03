@@ -16,13 +16,15 @@ public:
     void exibe_info();
     void cadastrar_usuario( string, int );
     void listar_usuarios ( ) const;
+    static string version;
+
 private:     
-    double version;
     double availableStorage;
     int coord_xyz[3];
     bool onoff;
     bool kinect_onoff;
-    string usuarios[5];
+    const static int NUMUSER = 5;
+    string usuarios[NUMUSER];
 };
 
 #endif // XBOX360_H
