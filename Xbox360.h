@@ -16,7 +16,6 @@ public:
     void exibe_info();
     void cadastrar_usuario( string, int );
     void listar_usuarios ( ) const;
-    static string version;
 
 private:     
     double availableStorage;
@@ -25,6 +24,7 @@ private:
     bool kinect_onoff;
     const static int NUMUSER = 5;
     string usuarios[NUMUSER];
+    static string version;
 };
 
 #endif // XBOX360_H
