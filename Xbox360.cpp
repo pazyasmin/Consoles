@@ -8,22 +8,22 @@ int Xbox360::version = "XBOX360.1.0";
 Xbox360::Xbox360()
 {
     onoff = false;
-    kinect_onoff = false;
+    konoff = false;
     availableStorage = 120.00;
         for(int i = 0; i < 5; i++)
-            usuarios[5] = "---"; 
+            allUsers[5] = "---"; 
     
 }
 
 Xbox360::Xbox360(const Xbox360 &x)
 {
     availableStorage = x.availableStorage;
-    coord_xyz = x.coord_xyz;
+    coordXYZ = x.coordXYZ;
     onoff = x.onoff;
-    kinect_onoff = x.kinect_onoff;
+    konoff = x.konoff;
     for (i = 0; i < NUMUSER; i++)
     {
-        usuarios[i] = x.usuarios[i];
+        allUsers[i] = x.allUsers[i];
     }
 }
 
@@ -32,7 +32,7 @@ Xbox360::~Xbox360()
     
 }
 
-void Xbox360::power_on_off( )
+void Xbox360::powerOnOff( )
 {
     if ( !onoff )
     {
@@ -43,21 +43,21 @@ void Xbox360::power_on_off( )
         cout << "*Console reseta*\n";
 }
 
-void Xbox360::kinect_on_off( )
+void Xbox360::kinectOnOff( )
 {
-    if( kinect_onoff )
+    if( konoff )
     {
-        kinect_onoff = true;
+        konoff = true;
         cout << "*Kinect liga*\n";
     }
     else
     {
-        kinect_onoff = false;
+        konoff = false;
         cout << "*Kinect desliga*.\n";
     }
 }
 
-void Xbox360::instalar_jogo()
+void Xbox360::installGame()
 {
     if( availableStorage > 10.00 )
     {
@@ -70,7 +70,7 @@ void Xbox360::instalar_jogo()
          cout << "Nao ha espaco suficiente.\n";
 }
 
-void Xbox360::desinstalar_jogo()
+void Xbox360::uninstallGame()
 {
     if( availableStorage < 120.00)
     {
@@ -82,35 +82,41 @@ void Xbox360::desinstalar_jogo()
          cout << "Nao ha jogos a serem desinstalados.\n";
 }
 
-void Xbox360::exibe_info() 
+void Xbox360::displayInfo() 
 {
     cout << "Informacoes de Sistema:\n";
     cout << "Xbox360 versao "<< version <<".\n";
     cout << "Espaco livre: "<< availableStorage <<" GB.\n";
-    if (kinect_onoff)
+    if (konoff)
         cout << "Kinect ligado.\n";
     else
         cout << "Kinect desligado\n";
 }
 
-void Xbox360::cadastrar_usuario( string newUser, int indice)
+void Xbox360::newUser( string usuario, int indice)
 {
     if (onoff)
     {
         if( indice >= 0 && indice < 5)
-            usuarios[indice] = newUser;
+            allUsers[indice] = usuario;
         else
             cout << "Nao pode ser cadastrado.\n";
     }
     
 }
 
-void Xbox360::listar_usuarios( ) const
+void Xbox360::displayUsers( ) const
 {
     if( onoff )
     {
         cout << "Usuarios:\n";
         for( int i = 0; i < 5; i++ )
-            cout << usuarios[i] << '\n';
+            cout << allUsers[i] << '\n';
     }
 }
+
+Xbox360::Xbox360(int day, int month, int year):biosDate(day, month, year)
+{
+    
+}
+
