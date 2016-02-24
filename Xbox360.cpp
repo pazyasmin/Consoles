@@ -3,28 +3,21 @@
 
 using std::cout;
 
-int Xbox360::version = "XBOX360.1.0";
+Xbox360::Xbox360( bool kinect, const string &nome)
+{
+    this->kinectON = kinect;
+    this->consoleName = nome ;
+}
 
 Xbox360::Xbox360()
 {
-    onoff = false;
-    konoff = false;
-    availableStorage = 120.00;
-        for(int i = 0; i < 5; i++)
-            allUsers[5] = "---"; 
-    
+    this->consoleName = "Desconhecido";
 }
 
-Xbox360::Xbox360(const Xbox360 &x)
+Xbox360::Xbox360(Xbox360 &x)
 {
-    availableStorage = x.availableStorage;
-    coordXYZ = x.coordXYZ;
-    onoff = x.onoff;
-    konoff = x.konoff;
-    for (i = 0; i < NUMUSER; i++)
-    {
-        allUsers[i] = x.allUsers[i];
-    }
+    this->kinectON = x.kinectON;
+    this->consoleName = x.consoleName;
 }
 
 Xbox360::~Xbox360()
@@ -32,91 +25,48 @@ Xbox360::~Xbox360()
     
 }
 
-void Xbox360::powerOnOff( )
+void Xbox360::setKinectON( bool )
 {
-    if ( !onoff )
+     if(this->kinectON)
     {
-        onoff = true;
-        cout << "*Console liga*\n";
-    }
-    else
-        cout << "*Console reseta*\n";
-}
-
-void Xbox360::kinectOnOff( )
-{
-    if( konoff )
-    {
-        konoff = true;
-        cout << "*Kinect liga*\n";
+        cout << "\nKinect liga";
     }
     else
     {
-        konoff = false;
-        cout << "*Kinect desliga*.\n";
+        this->kinectON = false;
+        cout << "\nKinect desliga.";
     }
 }
 
-void Xbox360::installGame()
+bool Xbox360::getKinectON()
 {
-    if( availableStorage > 10.00 )
-    {
-        availableStorage -= 10.00; 
-        cout << "O jogo foi instalado com sucesso.\n"
-             << "Espaco livre: " << availableStorage << " GB \n";
+    return kinectON;
+} 
 
-    }
-    else
-         cout << "Nao ha espaco suficiente.\n";
-}
 
-void Xbox360::uninstallGame()
+void Xbox360::displayInfo( Manufac fabricante &, int njogos &, string serie &, Date data1 &, Date data2 &, float livre, float usado )
 {
-    if( availableStorage < 120.00)
-    {
-        availableStorage += 10;
-        cout << "O jogo foi desinstalado com sucesso.\n"
-             << "Espaco livre " << availableStorage << " GB \n";
-    }
-    else
-         cout << "Nao ha jogos a serem desinstalados.\n";
-}
+            
+        cout << "\n\tInformacoes de Sistema";
+        cout << "\nNumero de serie: " << serie;
+        cout << "\nData de fabricacao: " << data1;
+        cout << "\nData de lancamento: " << data2;
+        cout << "\nEspaco em disco: " << livre;
+        cout << "\nEspaco em disco: " << usado;
 
-void Xbox360::displayInfo() 
-{
-    cout << "Informacoes de Sistema:\n";
-    cout << "Xbox360 versao "<< version <<".\n";
-    cout << "Espaco livre: "<< availableStorage <<" GB.\n";
-    if (konoff)
-        cout << "Kinect ligado.\n";
-    else
-        cout << "Kinect desligado\n";
-}
+            switch (fabricante) {
+                case 1:
+                    cout << "Fabricante: Microsoft Xbox\n";
+                    break;
+                case 2:
+                    cout << "Fabricante: Sony Play Station\n";
+                    break;
+                case 3:
+                    cout << "Fabricante: Nintendo\n";
+                    break;
+                case 4:
+                    cout << "Fabricante: Sega\n";
+                    break;
+            };
 
-void Xbox360::newUser( string usuario, int indice)
-{
-    if (onoff)
-    {
-        if( indice >= 0 && indice < 5)
-            allUsers[indice] = usuario;
-        else
-            cout << "Nao pode ser cadastrado.\n";
-    }
-    
 }
-
-void Xbox360::displayUsers( ) const
-{
-    if( onoff )
-    {
-        cout << "Usuarios:\n";
-        for( int i = 0; i < 5; i++ )
-            cout << allUsers[i] << '\n';
-    }
-}
-
-Xbox360::Xbox360(int day, int month, int year):biosDate(day, month, year)
-{
-    
-}
-

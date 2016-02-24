@@ -1,33 +1,29 @@
-#include <string>
-using std::string;
-
 #ifndef XBOX360_H
 #define XBOX360_H
-
+#include <string>
 #include "Date.h"
+using std::string;
+
 class Xbox360
 {
-public:
-    Xbox360(const Date &);
-    void printf () const;
-    ~Xbox360();
-    void powerOnOff();
-    void kinectOnOff();
-    void displayInfo();
-    void newUser( string, int );
-    void displayUsers ( ) const;
-    void installGame();
-    void uninstallGame();
-
-private:     
-    bool onoff;
-    bool konoff;
-    double availableStorage;
-    const static int NUMUSER = 5;
-    string allUsers[NUMUSER];
-    static string version;
-    int coordXYZ[3];
-    const Date biosDate;
+    public:
+        Xbox360( bool , const string &);
+        ~Xbox360();
+        void setKinectON( bool );
+        bool getKinectON(); 
+        void displayInfo();
+//        void updateSystem( );
+    private:     
+        bool kinectON;
+        const string consoleName;
+        const static int MAXUSERS = 10;
+        Date releaseDate(int , int , int );
+        //Falta implementar: 
+        //string allUsers[MAXUSERS];
+        //Jogos 
+        //Controle
+        //Kinect
+        //int coordXYZ[3];
 };
 
 #endif // XBOX360_H
