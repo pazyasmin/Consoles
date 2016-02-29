@@ -4,12 +4,10 @@
  */
 #include <iostream>
 #include <string>
-#include "Console.h"
+/*#include "Console.h"
 #include "Date.h"
-#include "Xbox360"
-using std::cout;
-using std::cin;
-
+#include "Xbox360.h"*/
+using namespace std;
 int main(int argc, char **argv)
 {
     Date release (22, 11, 2005);

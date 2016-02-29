@@ -1,20 +1,28 @@
-#ifndef DATE_H
-#define DATE_H
+#ifndef DATA_H
+#define	DATA_H
 
 class Date 
 {
-    public: 
-        Date ( int = 1 , int = 1 , int = 1900 ); //Construtor default com data de lançamento
-        Date(const Date &);
-        ~Date ();
-        
-        void displayDate() const; //Imprime data em formato dia/mês/ano
-        
-    private:
-        int month; 
-        int day;
-        int year; 
-        static int daysPerMonth[];
-        int checkDay ( int , int , int ) const; 
+public:
+    
+    Data( int = 1, int = 1, int = 1900 );
+    
+    void print() const;
+    
+    void setDia( int diaIn ) { dia = verificaDia( diaIn ); }
+    void setMes( int mesIn ) { if ( mesIn >= 1 && mesIn <= 12 ) mes = mesIn; }
+    void setAno( int anoIn ) { if ( anoIn >= 0 ) ano = anoIn; }
+    
+    
+private:
+    
+    int mes;
+    int dia;
+    int ano;
+    
+    int verificaDia( int ) const;
+
+
 };
-#endif //DATE_H
+
+#endif	/* DATA_H */

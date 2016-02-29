@@ -1,53 +1,41 @@
-#include<iostream>
 #include "Date.h"
+#include <iostream>
+using std::cout;
 
-using namespace std;
-
-Date::Date( int dia, int mes, int ano )
+Data::Data(int d, int m, int a) 
 {
-        this->day = checkDay(dia, mes, ano);
-        if ( ano < 0)
-        {
-            cout << "\nAno invalido!\n";
-            this->year = 1900;
-            
-        }
-        else   
-            this->year = ano;
-        if ( mes > 0 && mes <= 12 )
-            this->month = mes;
-        else   
-        {
-            cout << "\nMes invalido!\n";
-            this->month = 1;
-        }
+    if ( m > 0 && m <= 12 ) // validate the month
+        mes = m;
+    
+    if ( a < 0 )
+        ano = 1900;
+    else
+        ano = a;
+   
+    dia = verificaDia(d);
+
 }
 
-Date::Date(const Date &outra)
+void Data::print() const
 {
-    this->day = outra.day;
-    this->month = outra.month;
-    this->year = outra.year;
+   cout << dia << '/' << mes << '/' << ano;
+   
 }
 
-Date::~Date()
+int Data::verificaDia(int diaTeste) const
 {
+    static const int diasPorMes[ 13 ] = 
+       { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    
+    if ( diaTeste > 0 && diaTeste <= diasPorMes[ mes ] )
+        return diaTeste;
+    
+    if ( mes == 2 && diaTeste == 29 && ( ano % 400 == 0 ||
+            ( ano % 4 == 0 && ano % 100 != 0 ) ) )
+        return diaTeste;
+    
+    cout << "Dia invalido (" << diaTeste << ") configurado para 1.\n";
+    return 1; 
+
     
 }
-
-int Date::checkDay(int dia, int mes, int ano) const
-{
-    static const int daysPerMonth [ 13 ] =  { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-    if (dia > 0 && dia <= daysPerMonth[this->month])
-        return dia;
-    if (this->month == 2 && dia == 29 && (this->year%400==0 || (this->year%4 == 0 && this->year %100 != 0)))
-        return dia;
-    
-     return 1;
- 
-}
-void Date::displayDate() const
-{
-    cout<<"\n"<<this->day<<"/"<<this->month<<"/"<<this->year<<endl;
-}
-

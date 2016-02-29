@@ -1,73 +1,55 @@
 #include "Console.h"
-#include <string>
-#include <iostream>
-#include <stdlib.h>
-#include <windows.h>
-#include "Date.h"
 #include "Xbox360.h"
-using namespace std;
-
+#include <iostream>
+#include <time.h>
 using std::cout;
 using std::cin;
 using std::string;
 using std::getline;
 
-
 //Construtor
-
-Console::Console( bool estado, const Manufac &fabricante,  const Date &data, const string &serie ) 
+Console::Console():fabricationDate(1,1,2000) 
+{
+    powerON = false;
+    manufacturer = 0;
+    platform = 0; 
+    numSerie = "00000";
+    storage[2] = {320, 0};
+    numGames = 0;
+    numControls = 0; 
+    allGames = 0;
+}
+/*
+Console::Console ( const Console &, const Date &, const Xbox360 &);
+{
+}*/
+Console::Console( const MANUFACTURER &m, const PLATFORM &p, const string &s, const Date dt, double maximo,  double usado, int ncontroles, int njogos, bool estado )
 {       
+        this->manufacturer = m;
+        this->platform = p;
+        this->numSerie = s;
+        this->fabricationDate = dt;
+        this->maxStorage = maximo;
+        this->usedSpace = usado;
+        this->numControls = ncontroles;
+        this->numGames = njogos;
         this->powerON = estado;
-        this->usedSpace = 0;
-        this->freeSpace = CAPACITY;
-        this->manufacturer = fabricante;
-        this->numSerie = serie;
-        this->fabricationDate = data;
-            for (int i = 0; i < MAXCONTROLS; i++)
-            {
-                allControls[i] = false;
-            }
-        allocate(this->numGames);
-    
 }   
 //Construtor Cópia
 Console::Console( const Console &c )
-{
-    this->powerON = c.powerON;
-    this->manufacturer = c.manufacturer;
-    this->numSerie = c.numSerie;
-    this->fabricationDate = c.fabricationDate;
-    for (int i = 0; i < MAXCONTROLS; i++)
-    {
-        allControls[i] = c.allControls[i];
-    }
-    this->usedSpace = c.usedSpace;
-    this->freeSpace = c.freeSpace;
-    this->numGames = c.numGames;
-    this->gameList = c.gameList;
+{  
+        this->manufacturer = c.manufacturer;
+        this->numSerie = c.numSerie;
+        this->platform = c.platform;
+        this->numSerie = c.numSerie;
+        this->fabricationDate = c.fabricationDate;
+        this->maxStorage = c.maxStorage;
+        this->usedSpace = c.usedStorage;
+        this->numControls = c.numControls;
+        this->numGames = c.numGames;
+        this->powerON = c.powerON;
 }
 
-Console::Console()
-{
-    this->powerON = true;
-    this->manufacturer = Unspecified;
-    this->numSerie = "000000";
-    Date date;
-    this->fabricationDate = date;
-    for (int i = 0; i < MAXCONTROLS; i++)
-    {
-        allControls[i] = false;
-    }
-    this->usedSpace = 0;
-    this->freeSpace = CAPACITY;
-    this->gameList = 0;
-    this->numGames = 0;
-}
-
-Console::Console(const Console &, const Xbox360 &)
-{
-    
-}
 //Destrutor
 Console::~Console()
 {       
@@ -95,7 +77,7 @@ void Console::allocate( const int &njogos)
     }
 }
 
-void Console::powerONOFF()
+void Console::setPowerONOFF()
 {
     if ( !getPowerON() )
     {
@@ -105,57 +87,85 @@ void Console::powerONOFF()
     else
     {
         cout << "Reiniciando console...\n"; //O console é resetado
-        Sleep(10 * 1000);
         this->powerON = false;
+        Sleep(10 * 1000);
         cout << "Console reiniciado.\n"; //O console é resetado
         this->powerON = true;
     }
 }
+
+MANUFACTURER Console::getManufacturer() 
+{
+    return manufacturer;
+}
+PLATFORM Console::getPlatform() 
+{
+    return platform;
+}
+
+string Console::getNumSerie()
+{
+    return numSerie;
+}
+
+Date Console::getFDate()
+{
+    return fabricationDate;
+}
+
+double Console::getMaxStorage()
+{
+    return maxStorage;
+}
+
+
+double Console::getUsedSpace()
+{
+    return usedStorage;
+}
+
+        double getUsedStorage();
+        bool getPowerON();
 
 bool Console::getPowerON()
 {
     return powerON;
 }
 
-Manufac Console::getManufacturer() 
+//Setters
+void Console::setManufacturer( MANUFACTURER &m) 
 {
-    return this->manufacturer;
+    manufacturer = m;
 }
 
-string Console::getNumSerie( )
+void Console::setPlatform( PLATFORM &f) 
 {
-    return this->numSerie;
+    platform = f;
 }
 
-Date Console::getFabricationDate( )
+void Console::setNumSerie( string &s )
 {
-    return this->fabricationDate;
+    numSerie = s;
 }
 
-float Console::getFreeSpace()
+void Console::setFDate( Date &d)
 {
-   return freeSpace;
+    fabricationDate = d;
 }
 
-float Console::getUsedSpace()
+void Console::setMaxStorage( double &max)
 {
-   return usedSpace;
+    maxStorage = max;
 }
-    
 
-void Console::installGame( string nomejogo)
+void Console::setUsedStorage( double &usado)
 {
-    if( this->getFreeSpace() > 10.00 )
-    {
-        freeSpace -= 10.00; 
-        usedSpace += 10.00;
-        gameList[this->numGames] = nomejogo;
-        cout << "O jogo foi instalado com sucesso!\n"
-             << "Armazenamento livre: " << freeSpace << " GB \n";
+    usedStorage = usado;
+}
 
-    }
-    else
-         cout << "Espaco insuficiente!\n";
+void Console::getPowerON( bool estado)
+{
+    powerON = estado;
 }
 
 
