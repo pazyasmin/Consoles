@@ -1,11 +1,8 @@
 #ifndef XBOX360_H
 #define XBOX360_H
 #include <string>
-
 #include "Date.h"
 #include "Console.h"
-
-using std::string;
 
 class Xbox360
 {
@@ -19,9 +16,10 @@ class Xbox360
         void updateSystem( );
     private:     
         bool kinectON;
-        const string consoleName;
+        string deviceName; 
         const static int MAXUSERS = 10;
-        Date releaseDate(int , int , int );
+        const Date releaseDate(int = 12, int = 4, int = 2005);
+        Date lastUpdate (int , int , int ); 
 
 };
 

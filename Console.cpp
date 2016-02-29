@@ -2,10 +2,7 @@
 #include "Xbox360.h"
 #include <iostream>
 #include <time.h>
-using std::cout;
-using std::cin;
-using std::string;
-using std::getline;
+using namespace std;
 
 //Construtor
 Console::Console():fabricationDate(1,1,2000) 
@@ -53,45 +50,36 @@ Console::Console( const Console &c )
 //Destrutor
 Console::~Console()
 {       
-    delete [] gameList;
+    delete [] allGames;
 }
 
 void Console::allocate( const int &njogos)
 {
     if ( njogos > 0)
     {
-        gameList = new string [njogos];
+        allGames = new string [njogos];
         numGames = njogos;
         cout <<"\nNumero de jogos instalados: "<<numGames;
         int i;
         for ( i = 0 ; i <= numGames ; i++)
         {
-            cout <<"\n"<< gameList[i];
+            cout <<"\n"<< allGames[i];
         }
     }
     else
     {
-        gameList = 0;
+        allGames = 0;
         numGames = 0;
         cout <<"\nNenhum jogo instalado.";
     }
 }
 
-void Console::setPowerONOFF()
+
+//Getters
+
+bool Console::getPowerON()
 {
-    if ( !getPowerON() )
-    {
-        this->powerON = true;
-        cout << "Ligando console...\n"; //O console é ligado
-    }
-    else
-    {
-        cout << "Reiniciando console...\n"; //O console é resetado
-        this->powerON = false;
-        Sleep(10 * 1000);
-        cout << "Console reiniciado.\n"; //O console é resetado
-        this->powerON = true;
-    }
+    return powerON;
 }
 
 MANUFACTURER Console::getManufacturer() 
@@ -127,12 +115,26 @@ double Console::getUsedSpace()
         double getUsedStorage();
         bool getPowerON();
 
-bool Console::getPowerON()
+//Setters
+
+void Console::setPowerON()
 {
-    return powerON;
+    if ( !getPowerON() )
+    {
+        this->powerON = true;
+        cout << "Ligando console...\n"; //O console é ligado
+    }
+    else
+    {
+        cout << "Reiniciando console...\n"; //O console é resetado
+        this->powerON = false;
+        Sleep(10 * 1000);
+        cout << "Console reiniciado.\n"; //O console é resetado
+        this->powerON = true;
+    }
 }
 
-//Setters
+
 void Console::setManufacturer( MANUFACTURER &m) 
 {
     manufacturer = m;
@@ -168,7 +170,17 @@ void Console::getPowerON( bool estado)
     powerON = estado;
 }
 
+void insertControl( )
+{
+    
+    
+}
 
+void ejectControl ( )
+{
+    
+    
+}
 
 
 

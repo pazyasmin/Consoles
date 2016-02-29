@@ -2,36 +2,36 @@
 #include <iostream>
 using std::cout;
 
-Data::Data(int d, int m, int a) 
+Date::Date(int d, int m, int a) 
 {
-    if ( m > 0 && m <= 12 ) // validate the month
-        mes = m;
+    if ( m > 0 && m <= 12 ) 
+        month = m;
     
     if ( a < 0 )
-        ano = 1900;
+        year = 1900;
     else
-        ano = a;
+        year = a;
    
-    dia = verificaDia(d);
+    day = verifyDay(d);
 
 }
 
-void Data::print() const
+void Date::displayDate() const
 {
-   cout << dia << '/' << mes << '/' << ano;
+   cout << month << '/' << day << '/' << year;
    
 }
 
-int Data::verificaDia(int diaTeste) const
+int Date::verifyDay(int diaTeste) const
 {
-    static const int diasPorMes[ 13 ] = 
+    static const int daysPerMonth[ 13 ] = 
        { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     
-    if ( diaTeste > 0 && diaTeste <= diasPorMes[ mes ] )
+    if ( diaTeste > 0 && diaTeste <= daysPerMonth[ month ] )
         return diaTeste;
     
-    if ( mes == 2 && diaTeste == 29 && ( ano % 400 == 0 ||
-            ( ano % 4 == 0 && ano % 100 != 0 ) ) )
+    if ( month == 2 && diaTeste == 29 && ( year % 400 == 0 ||
+            ( year % 4 == 0 && year % 100 != 0 ) ) )
         return diaTeste;
     
     cout << "Dia invalido (" << diaTeste << ") configurado para 1.\n";

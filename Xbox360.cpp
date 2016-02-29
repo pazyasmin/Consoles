@@ -17,7 +17,7 @@ Xbox360::Xbox360()
 Xbox360::Xbox360(Xbox360 &x)
 {
     this->kinectON = x.kinectON;
-    this->consoleName = x.consoleName;
+    this->deviceName = x.deviceName;
 }
 
 Xbox360::~Xbox360()
@@ -44,13 +44,13 @@ bool Xbox360::getKinectON()
 } 
 
 
-void Xbox360::displayInfo( Manufac fabricante &, int njogos &, string serie &, Date data1 &, Date data2 &, float livre, float usado )
+void Xbox360::displayInfo( MANUFACTURER &f, int njogos &jogos, string &serie, Date &data, Date &datb , float livre, float usado )
 {
             
         cout << "\n\tInformacoes de Sistema";
         cout << "\nNumero de serie: " << serie;
-        cout << "\nData de fabricacao: " << data1;
-        cout << "\nData de lancamento: " << data2;
+        cout << "\nData de fabricacao: " << data;
+        cout << "\nData de lancamento: " << datb;
         cout << "\nEspaco em disco: " << livre;
         cout << "\nEspaco em disco: " << usado;
 

@@ -5,22 +5,22 @@ class Date
 {
 public:
     
-    Data( int = 1, int = 1, int = 1900 );
+    Date( int = 1, int = 1, int = 1900 );
     
     void print() const;
     
-    void setDia( int diaIn ) { dia = verificaDia( diaIn ); }
-    void setMes( int mesIn ) { if ( mesIn >= 1 && mesIn <= 12 ) mes = mesIn; }
-    void setAno( int anoIn ) { if ( anoIn >= 0 ) ano = anoIn; }
+    void setDay( int dia ) { day = verifyDay( dia ); }
+    void setMonth( int mes ) { if ( mes >= 1 && mes <= 12 ) mes = mes; }
+    void setYear( int ano ) { if ( ano >= 0 ) ano = ano; }
     
     
 private:
     
-    int mes;
-    int dia;
-    int ano;
+    int month;
+    int day;
+    int year;
     
-    int verificaDia( int ) const;
+    int verifyDay( int ) const;
 
 
 };
