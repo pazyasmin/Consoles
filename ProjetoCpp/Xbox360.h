@@ -11,15 +11,19 @@ class Xbox360
         Xbox360();
         ~Xbox360();
         void setKinectON( bool );
+        void setReleaseDate ( Date );
+        void setLastUpdate ( Date );
+        void setUpdate( string );
         bool getKinectON(); 
-        void displayInfo() const;
-        void updateSystem( );
+        Date getReleaseDate();
+        Date getSystemUpdate();
+        string getUpdate();
     private:     
         bool kinectON;
-        string deviceName; 
-        const static int MAXUSERS = 10;
+        string update;
         const Date releaseDate(int = 12, int = 4, int = 2005);
-        Date lastUpdate (int , int , int ); 
+        Date LastUpdate (int , int , int ); 
+        const static int MAXUSERS = 10;
 
 };
 

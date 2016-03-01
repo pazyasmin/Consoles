@@ -3,15 +3,15 @@
 
 using std::cout;
 
-Xbox360::Xbox360( bool kinect, const string &nome)
+Xbox360::Xbox360( bool k, string atualizacao, Date lancamento, Date ultima_atualizacao)
 {
-    this->kinectON = kinect;
-    this->consoleName = nome ;
+
 }
+
 
 Xbox360::Xbox360()
 {
-    this->consoleName = "Desconhecido";
+
 }
 
 Xbox360::Xbox360(Xbox360 &x)
@@ -43,7 +43,7 @@ bool Xbox360::getKinectON()
     return kinectON;
 } 
 
-
+/*
 void Xbox360::displayInfo( MANUFACTURER &f, int njogos &jogos, string &serie, Date &data, Date &datb , float livre, float usado )
 {
             
@@ -70,3 +70,4 @@ void Xbox360::displayInfo( MANUFACTURER &f, int njogos &jogos, string &serie, Da
             };
 
 }
+*/

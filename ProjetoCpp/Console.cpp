@@ -5,16 +5,9 @@
 using namespace std;
 
 //Construtor
-Console::Console():fabricationDate(1,1,2000) 
+Console::Console(): numControls (0), numGames(0), usedStorage (0), platform(UNSPECIFIED)
 {
     powerON = false;
-    manufacturer = 0;
-    platform = 0; 
-    numSerie = "00000";
-    storage[2] = {320, 0};
-    numGames = 0;
-    numControls = 0; 
-    allGames = 0;
 }
 /*
 Console::Console ( const Console &, const Date &, const Xbox360 &);
@@ -82,68 +75,23 @@ bool Console::getPowerON()
     return powerON;
 }
 
-MANUFACTURER Console::getManufacturer() 
-{
-    return manufacturer;
-}
-PLATFORM Console::getPlatform() 
-{
-    return platform;
-}
-
-string Console::getNumSerie()
-{
-    return numSerie;
-}
-
-Date Console::getFDate()
-{
-    return fabricationDate;
-}
-
-double Console::getMaxStorage()
-{
-    return maxStorage;
-}
-
-
 double Console::getUsedSpace()
 {
     return usedStorage;
 }
 
-        double getUsedStorage();
-        bool getPowerON();
+double Console::getUsedStorage()
+{
+    
+}
 
 //Setters
-
-void Console::setPowerON()
-{
-    if ( !getPowerON() )
-    {
-        this->powerON = true;
-        cout << "Ligando console...\n"; //O console é ligado
-    }
-    else
-    {
-        cout << "Reiniciando console...\n"; //O console é resetado
-        this->powerON = false;
-        Sleep(10 * 1000);
-        cout << "Console reiniciado.\n"; //O console é resetado
-        this->powerON = true;
-    }
-}
-
-
-void Console::setManufacturer( MANUFACTURER &m) 
-{
-    manufacturer = m;
-}
 
 void Console::setPlatform( PLATFORM &f) 
 {
     platform = f;
 }
+
 
 void Console::setNumSerie( string &s )
 {
