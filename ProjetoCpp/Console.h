@@ -2,8 +2,7 @@
 #define CONSOLE_H
 #include <string>
 #include <fstream>
-
-//Pré-definições plataforma
+//Pré-definições plataforma...
 enum PLATFORM { UNSPECIFIED = 0, XBOXONE = 1, XBOX360 = 2, PLAYSTATION3 = 3, PLAYSTATION4 = 4, WII = 5, WIIU = 6, MEGADRIVE = 7} 
 
 class Console

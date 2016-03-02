@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include "Date.h"
+//
 //Pré-definições plataforma
 enum MANUFACTURER{ UNSPECIFIED = 0, MICROSOFT = 1, SONY = 2, NINTENDO = 3, SEGA = 4 };
 

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <time.h>
 using namespace std;
-
+//
 //Construtor default
 Device::Device(): deviceName("Desconhecido"), model("Desconhecido"), numSerie(0), fabricationDate(0,0,0), 
 internalStorage(320.00), externalStorage (0.00)

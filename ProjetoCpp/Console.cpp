@@ -2,8 +2,7 @@
 #include <iostream>
 #include <time.h>
 using namespace std;
-
-//Construtor default
+//Construtor default...
 Console::Console(): numControls (0), numGames(0), usedStorage (0), platform(UNSPECIFIED)
 {
     allocDyn(njogos); 
