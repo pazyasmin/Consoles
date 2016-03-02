@@ -36,10 +36,10 @@ Device::Device( const Device &c )
         powerON = c.powerON;
 }
 
-//Destrutor com desalocador
-Console::~Console()
+//Destrutor 
+Device::~Device()
 {       
-    delete [] allGames;
+   
 }
 
 //Operador <<
@@ -53,36 +53,10 @@ ostream &operator<<( ostream &output, const Device &dev)
         << "\nArmazenamento externo: " << dev.externalStorage
 }
 
-void Console::allocate( const int &njogos)
-{
-    if ( njogos > 0)
-    {
-        allGames = new string [njogos];
-        numGames = njogos;
-        cout <<"\nNumero de jogos instalados: "<<numGames;
-        int i;
-        for ( i = 0 ; i <= numGames ; i++)
-        {
-            cout <<"\n"<< allGames[i];
-        }
-    }
-    else
-    {
-        allGames = 0;
-        numGames = 0;
-        cout <<"\nNenhum jogo instalado.";
-    }
-}
-
 //Getters
 bool Device::getPowerON()
 {
     return powerON;
-}
-
-string Device::setDeviceName() 
-{
-    return deviceName;
 }
 
 MANUFACTURER Device::getManufacturer() 
@@ -105,10 +79,14 @@ double Device::getMaxStorage()
     return maxStorage;
 }
 
-
-bool Device::getPowerON()
+double Device::getInternalStorage()
 {
-    return powerON;
+    return internalStorage;
+}
+
+double Device::getExternalStorage()
+{
+    return externalStorage;
 }
 
 //Setters
@@ -154,9 +132,15 @@ void Device::setFabricationDate( Date &data)
     fabricationDate = data;
 }
 
-void Device::setMaxStorage( double &espaco)
+void Device::setInternalStorage( double &interno)
 {
-    maxStorage = espaco;
+    internalStorage = interno;
+}
+
+
+void Device::setExternalStorage( double &externo)
+{
+    externalStorage = externo;
 }
 
 

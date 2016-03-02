@@ -17,7 +17,7 @@ class Device
         std::string getModel();
         std::string getNumSerie();
         MANUFACTURER getManufacturer();
-        Date setFabricationDate();
+        Date getFabricationDate();
         double getInternalStorage();
         double getExternalStorage();
         void setDeviceName( const string & );
