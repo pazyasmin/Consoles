@@ -1,7 +1,7 @@
 #ifndef CONSOLE_H
 #define CONSOLE_H
 #include <string>
-#include "Xbox360.h"
+#include <fstream>
 
 //Pré-definições plataforma
 enum PLATFORM { UNSPECIFIED = 0, XBOXONE = 1, XBOX360 = 2, PLAYSTATION3 = 3, PLAYSTATION4 = 4, WII = 5, WIIU = 6, MEGADRIVE = 7} 
@@ -12,25 +12,43 @@ class Console
     public:
         Console();
         Console( const PLATFORM &, double , double );
+        friend ostream &operator<<( ostream &, const Console &);
+        void allocDyn( int );
         ~Console();
         PLATFORM getPlatform();
+        
+        Date getReleaseDate();
+        string getLastUpdate();
+        Date getWhenLastUpdate();
         double getTotalStorage();
         double getUsedStorage();
-        int getNumGames( int );
-        int getNumControls( int );
-        void setPlatform( MANUFACTURER );
-        void setTotalStorage( double );
+        int getNumGames();
+        int getNumControls();
+        
+        void setReleaseDate ( Date );
+        void setLastUpdate ( string );
+        void setWhenLastUpdate ( Date );
         void setUsedStorage( double );
-        void setNumGames();
-        void setNumControls();
+        void setNumGames( int );
+        void setNumControls( int );
+        
+        void insertControl();
+        void ejectControl();
+        
         
     private:     
         PLATFORM platform; 
+        string update;
+        const Date releaseDate;
+        string lastUpdate;
+        Date whenLastUpdate; 
+        
         double totalStorage;
         double usedStorage;
-        std::string *allGames;    
         int numGames;
         int numControls; 
+        std::string *allGames; 
+    
     
             friend void friendStorage (Device &oDev, Console &oCon);
             void friendStorage(Device &oDev, Console &oCon)

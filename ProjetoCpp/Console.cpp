@@ -4,40 +4,31 @@
 #include <time.h>
 using namespace std;
 
-//Construtor
+//Construtor default
 Console::Console(): numControls (0), numGames(0), usedStorage (0), platform(UNSPECIFIED)
 {
-    powerON = false;
+    allocDyn(njogos); 
 }
-/*
-Console::Console ( const Console &, const Date &, const Xbox360 &);
-{
-}*/
-Console::Console( const MANUFACTURER &m, const PLATFORM &p, const string &s, const Date dt, double maximo,  double usado, int ncontroles, int njogos, bool estado )
+
+Console::Console( const PLATFORM &p, double maximo,  double usado, int ncontroles, int njogos, bool estado )
 {       
-        this->manufacturer = m;
         this->platform = p;
-        this->numSerie = s;
-        this->fabricationDate = dt;
         this->maxStorage = maximo;
         this->usedSpace = usado;
         this->numControls = ncontroles;
         this->numGames = njogos;
-        this->powerON = estado;
+        this->allocDyn(njogos);
 }   
 //Construtor Cópia
 Console::Console( const Console &c )
 {  
-        this->manufacturer = c.manufacturer;
-        this->numSerie = c.numSerie;
+        
         this->platform = c.platform;
-        this->numSerie = c.numSerie;
-        this->fabricationDate = c.fabricationDate;
         this->maxStorage = c.maxStorage;
         this->usedSpace = c.usedStorage;
         this->numControls = c.numControls;
         this->numGames = c.numGames;
-        this->powerON = c.powerON;
+        this->allocDyn(c.numGames);
 }
 
 //Destrutor
@@ -46,10 +37,10 @@ Console::~Console()
     delete [] allGames;
 }
 
-void Console::allocate( const int &njogos)
+void Console::allocDyn(const int njogos)
 {
     if ( njogos > 0)
-    {
+    {   
         allGames = new string [njogos];
         numGames = njogos;
         cout <<"\nNumero de jogos instalados: "<<numGames;
@@ -67,56 +58,48 @@ void Console::allocate( const int &njogos)
     }
 }
 
-
 //Getters
-
-bool Console::getPowerON()
+PLATFORM Console::getPlatform()
 {
-    return powerON;
+    return platform;
 }
 
-double Console::getUsedSpace()
+double Console::getTotalStorage()
 {
-    return usedStorage;
+    return totalStorage;
 }
 
 double Console::getUsedStorage()
 {
-    
+    return usedStorage;
 }
 
+int Console::getNumGames()
+{
+    return numGames;
+}
+
+int Console::getNumControls()
+{
+    return numControls;
+}
 //Setters
 
-void Console::setPlatform( PLATFORM &f) 
-{
-    platform = f;
-}
-
-
-void Console::setNumSerie( string &s )
-{
-    numSerie = s;
-}
-
-void Console::setFDate( Date &d)
-{
-    fabricationDate = d;
-}
-
-void Console::setMaxStorage( double &max)
-{
-    maxStorage = max;
-}
-
-void Console::setUsedStorage( double &usado)
+void Console::setUsedStorage( double usado )
 {
     usedStorage = usado;
 }
 
-void Console::getPowerON( bool estado)
+void Console::setNumGames( int njogos )
 {
-    powerON = estado;
+    numGames = njogos;
 }
+
+void Console::setNumControls( int ncontroles )
+{
+    numControls = ncontroles;
+}        
+
 
 void insertControl( )
 {

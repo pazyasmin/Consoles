@@ -13,6 +13,13 @@ class Device
         Device ( const string &, const string &, const int &, const MANUFACTURER &, const Date &);
         friend ostream &operator<<( ostream &, const Device &);
        
+        std::string getDeviceName();
+        std::string getModel();
+        std::string getNumSerie();
+        MANUFACTURER getManufacturer();
+        Date setFabricationDate();
+        double getInternalStorage();
+        double getExternalStorage();
         void setDeviceName( const string & );
         void setModel ( const string & );
         void setNumSerie ( const string & );
@@ -22,13 +29,7 @@ class Device
         void setExternalStorage ( const double &);
         void setPowerON ( bool ); 
         bool getPowerON();
-        std::string getDeviceName();
-        std::string getModel();
-        std::string getNumSerie();
-        MANUFACTURER getManufacturer();
-        Date setFabricationDate();
-        double getInternalStorage();
-        double getExternalStorage();
+
                 
     protected:
         std::string deviceName;
