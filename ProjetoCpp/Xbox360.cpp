@@ -11,7 +11,6 @@ Xbox360::Xbox360()
 Xbox360::Xbox360(Xbox360 &x)
 {
     this->kinectON = x.kinectON;
-    this->deviceName = x.deviceName;
 }
 
 Xbox360::~Xbox360()
@@ -37,3 +36,7 @@ bool Xbox360::getKinectON()
     return kinectON;
 } 
 
+ostream &operator<<( ostream &output, const Xbox360 &con)
+{
+    output << "\nStatus Kinect: " << con.kinectON() 
+}

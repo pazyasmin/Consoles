@@ -39,3 +39,10 @@ int Date::verifiedDay(int diaTeste) const
 
     
 }
+
+ostream &operator<<( ostream &output, const Date &dat)
+{
+    output << "\nExibir data em DD/MM/AA: " << dat.day << "\" 
+    << dat.month << "\" 
+    << dat.year;
+}

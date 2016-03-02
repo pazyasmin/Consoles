@@ -1,5 +1,4 @@
 #include "Console.h"
-#include "Xbox360.h"
 #include <iostream>
 #include <time.h>
 using namespace std;
@@ -58,6 +57,15 @@ void Console::allocDyn(const int njogos)
     }
 }
 
+ostream &operator<<( ostream &output, const Console &con)
+{
+    output << "\nPlataforma: " << con.platform << "\nData de lancamento: " << con.releaseDate
+    << "\nData da ultima atualizacao: " << con.whenLastUpdate << "Atualizacao: " << con.whenLastUpdate
+    << "\nArmazenamento: " << con.totalStorage << "\nEspaco usado: " << con.usedStorage << "\nNumero de jogos instalados"
+    << con.numGames << "\nNumero de controles conectados: " << con.numControls;
+}
+
+
 //Getters
 PLATFORM Console::getPlatform()
 {
@@ -104,12 +112,12 @@ void Console::setNumControls( int ncontroles )
 void insertControl( )
 {
     
-    
+    //Falta implementar classe controle 
 }
 
 void ejectControl ( )
 {
-    
+    //Falta implementar classe controle
     
 }
 
