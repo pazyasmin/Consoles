@@ -1,6 +1,6 @@
-#include "Xbox360.h"
 #include <iostream>
-using namespace std;
+#include "Xbox360.h"
+using  namespace std;
 //
 Xbox360::Xbox360()
 {

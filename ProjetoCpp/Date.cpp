@@ -1,48 +1,104 @@
-#include "Date.h"
 #include <iostream>
-using std::cout;
+#include "Date.h"
+using  namespace std;
 //
-Date::Date(int d, int m, int a) 
+
+Date::Date( int dia, int mes, int ano ) 
 {
-    if ( m > 0 && m <= 12 ) 
-        month = m;
+    setDate ( dia , mes, ano ); 
+}
+
+Date::~Date()
+{
     
-    if ( a < 0 )
-        year = 1900;
+}
+void Date::setDate(int dia, int mes, int ano )
+{
+    if ( mes > 0 && mes <= monthsPerYear ) 
+        month = mes;
     else
-        year = a;
-   
-    day = verifyDay(d);
-
-}
-
-void Date::displayDate() const
-{
-   cout << month << '/' << day << '/' << year;
-   
-}
-
-int Date::verifiedDay(int diaTeste) const
-{
-    static const int daysPerMonth[ 13 ] = 
+        cout << "\nMes invalido ("<< mes << ")";
+    if ( ano >= 1900  && ano <= 2100 )
+        year = ano;
+    else
+    {
+        cout << "\nAno invalido ("<< ano << ")";
+        year = 1900;
+    }
+    
+    static const int daysPerMonth[ monthsPerYear + 1] = 
        { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     
-    if ( diaTeste > 0 && diaTeste <= daysPerMonth[ month ] )
-        return diaTeste;
-    
-    if ( month == 2 && diaTeste == 29 && ( year % 400 == 0 ||
-            ( year % 4 == 0 && year % 100 != 0 ) ) )
-        return diaTeste;
-    
-    cout << "Dia invalido (" << diaTeste << ") configurado para 1.\n";
-    return 1; 
-
-    
+    if (( month == 2 && leapYear( ano ) && dia >= 1 && dia <= 29 ) || (dia >=1 && dia <= daysPerMonth [ month ] ) )
+        day = dia;    
+    else 
+        cout << "Dia invalido (" << dia << ")";
 }
 
-ostream &operator<<( ostream &output, const Date &dat)
+Date Date::getDate()
 {
-    output << "\nExibir data em DD/MM/AA: " << dat.day << "\" 
-    << dat.month << "\" 
-    << dat.year;
+   return ( day , month, year );
+}
+
+bool Date::leapYear( int anoTeste)
+{
+    if ( anoTeste % 400 == 0) || (anoTeste % 100 != 0 && anoTeste % 4 == 0)
+        return true; 
+    else
+        return false;    
+}
+
+bool Date::endOfMonth ( int diaTeste ) const 
+{
+    if ( month == 2 && leapYear( ano ) )
+        return diaTeste == 29;
+    else 
+        return diaTeste == daysPerMonth[ month ];
+}
+//Overload de Operadores
+Date &Date::operator++()
+{
+    helpIncrement();
+    return *this; 
+} 
+
+Date Date::operator++( int )
+{
+    Date temp = *this; 
+    helpIncrement();
+    return temp; 
+}
+
+const Date &Date::operator+=( int maisUmDia )
+{
+    for ( int i = 0; i < maisUmDia; ++i )
+    helpIncrement();
+    return *this; 
+} 
+
+void Date::helpIncrement()
+{
+    if ( !endOfMonth( day ) )
+        ++day; 
+    else
+        if ( month < 12 ) // day is end of month and month < 12
+        {
+            ++month; 
+            day = 1;
+        }
+        else 
+        {
+            ++year; 
+            month = 1;
+            day = 1;
+        }
+} 
+
+ostream &operator<<( ostream &output, const Date &d )
+{
+ static string monthName[ 13 ] = { "", "Janeiro", "Fevereiro",
+ "Marco", "Abril", "Maio", "Junho", "Julho", "Agosto",
+ "Setembro", "Outubro", "Novembro", "Dezembro" };
+    output << monthName[ d.month ] << ' ' << d.day << ", " << d.year;
+    return output; 
 }

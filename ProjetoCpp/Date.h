@@ -1,30 +1,30 @@
 #ifndef DATA_H
 #define	DATA_H
+#include <iostream>
 #include <fstream>
-//
+#include <string>
+
 class Date 
 {
+    friend ostream &operator<<( ostream &, const Date &);
     public:
-    
-        Date( int = 1, int = 1, int = 1900 );
-        friend ostream &operator<<( ostream &, const Date &);
-        void displayDate() const;
+        static const int monthsPerYear = 12;
+        Date(int dia = 1, int mes = 1, int ano = 1900);
+        ~Date();
+        void setDate( int , int , int );
+        Date getDate();
+        bool endOfMonth( int ) const;
+        static bool leapYear ( int );
         
-        void setDay( int dia ) { day = verifyDay( dia ); }
-        void setMonth( int mes ) { if ( mes >= 1 && mes <= 12 ) mes = mes; }
-        void setYear( int ano ) { if ( ano >= 0 ) ano = ano; }
+        Date &operator++();
+        Date operator++( int );
+        const Date &operator+=( int );
         
-    
     private:
-    
         int month;
         int day;
         int year;
         
-        int verifiedDay( int ) const;
-
-
-
+        void helpIncrement();
 };
-
 #endif	/* DATA_H */
