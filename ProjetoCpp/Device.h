@@ -4,7 +4,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
 enum MANUFACTURER{ UNSPECIFIED = 0, MICROSOFT = 1, SONY = 2, NINTENDO = 3, SEGA = 4 };
 
 class Device

@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Date.h"
 using  namespace std;
-//
 
 Date::Date( int dia, int mes, int ano ) 
 {

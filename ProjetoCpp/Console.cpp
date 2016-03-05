@@ -1,8 +1,8 @@
 #include <iostream>
 #include "Console.h"
 using  namespace std;
-//Construtor vazio
 
+//Construtor vazio
 Console::Console():consoleName("Meu Console"), platform (UNKNOWN), releaseDate(12,4,2005), lastUpdate ("KZ.1.0"), whenLastUpdate(12,4,2005), 
 numControls (0), numGames(0), usedStorage (0), totalStorage(320.00), 
 {
