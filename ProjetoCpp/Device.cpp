@@ -1,13 +1,12 @@
 #include <iostream>
 #include "Device.h"
 using  namespace std;
-//
+
 //Construtor default
-Device::Device():deviceName("Meu dispositivo"), model("DPT-3000"), numSerie("DPT123456"), fabricationDate(12,4,2005), 
-internalStorage(320.00), externalStorage (0.00)
+Device::Device():deviceName("Meu dispositivo"), model("DPT-3000"), numSerie("DPT123456"), manufacturer(UNSPECIFIED), fabricationDate(12,4,2005), 
+internalStorage(320.00), externalStorage (0.00), powerON(false)
 {
-    powerON = false;
-    manufacturer = UNSPECIFIED;
+
 }
 //Construtor 
 Device::Device( const string &devnome, const string &modelo, const int &nserie, const MANUFACTURER &manuf, const Date &data, 

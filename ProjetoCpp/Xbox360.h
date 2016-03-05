@@ -6,7 +6,7 @@
 //
 class Xbox360
 {
-    friend ostream &operator<<( ostream &, const Xbox360 &);
+    
     public:
         Xbox360( bool , const string &);
         Xbox360();
