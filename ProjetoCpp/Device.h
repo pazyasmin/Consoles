@@ -13,7 +13,8 @@ class Device
     
     public:
         Device ();
-        Device ( const string &, const string &, const int &, const MANUFACTURER &, const Date &, double , double , bool );
+        Device ( const string &, const string &, const int &, const MANUFACTURER &, const Date &, 
+        double , double , bool );
         MANUFACTURER getManufacturer();
         std::string getDeviceName();
         std::string getModel();

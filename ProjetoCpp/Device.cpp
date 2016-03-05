@@ -3,19 +3,20 @@
 using  namespace std;
 
 //Construtor default
-Device::Device():deviceName("Meu dispositivo"), model("DPT-3000"), numSerie("DPT123456"), manufacturer(UNSPECIFIED), fabricationDate(12,4,2005), 
-internalStorage(320.00), externalStorage (0.00), powerON(false)
+Device::Device():deviceName("Meu dispositivo"), model("DPT-3000"), numSerie("DPT123456"), 
+manufacturer(UNSPECIFIED), fabricationDate(12,4,2005), internalStorage(320.00), externalStorage (0.00), 
+powerON(false)
 {
 
 }
 //Construtor 
-Device::Device( const string &devnome, const string &modelo, const int &nserie, const MANUFACTURER &manuf, const Date &data, 
-double interno, double externo, bool estado )
+Device::Device( const string &devnome, const string &modelo, const int &nserie, const MANUFACTURER &fabricante, 
+const Date &data, double interno, double externo, bool estado )
 {       
         this->deviceName = devnome;
         this->model = modelo;
         this->numSerie = nserie;
-        this->manufacturer = manufac;
+        this->manufacturer = fabricante;
         this->fabricationDate = data;
         this->internalStorage = interno;
         this->externalStorage = externo;

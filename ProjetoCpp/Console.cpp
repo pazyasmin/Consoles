@@ -3,14 +3,15 @@
 using  namespace std;
 //Construtor vazio
 
-Console::Console():consoleName("Meu Console"), platform (UNKNOWN), releaseDate(12,4,2005), lastUpdate ("KZ.1.0"), whenLastUpdate(12,4,2005), numControls (0), numGames(0), usedStorage (0), totalStorage(320.00), 
+Console::Console():consoleName("Meu Console"), platform (UNKNOWN), releaseDate(12,4,2005), lastUpdate ("KZ.1.0"), whenLastUpdate(12,4,2005), 
+numControls (0), numGames(0), usedStorage (0), totalStorage(320.00), 
 {
     
 }
 
 //Construtor
-Console::Console( const string &nomeConsole , const PLATFORM &plataforma, const Date &lancamento, const string &ultimoUpdate, const Date &qdoUltimoUpdate, 
-double espacoTotal, double espacoUsado, int nControles, int nJogos )
+Console::Console( const string &nomeConsole , const PLATFORM &plataforma, const Date &lancamento, const string &ultimoUpdate, 
+const Date &qdoUltimoUpdate, double espacoTotal, double espacoUsado, int nControles, int nJogos )
 {       
         this->consoleName = nomeConsole;
         this->platform = plataforma;
@@ -74,7 +75,8 @@ ostream &operator<<( ostream &output, const Console &con)
 {
     output << "\nPlataforma: " << con.platform << "\nData de lancamento: " << con.releaseDate
     << "\nData da ultima atualizacao: " << con.whenLastUpdate << "Atualizacao: " << con.whenLastUpdate
-    << "\nArmazenamento: " << con.totalStorage << "\nEspaco usado: " << con.usedStorage << "\nNumero de jogos instalados"
+    << "\nArmazenamento: " << con.totalStorage << "\nEspaco usado: " 
+    << con.usedStorage << "\nNumero de jogos instalados"
     << con.numGames << "\nNumero de controles conectados: " << con.numControls;
 }
 
