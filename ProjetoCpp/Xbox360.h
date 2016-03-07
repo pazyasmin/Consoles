@@ -4,7 +4,7 @@
 #include <fstream>
 #include <string>
 
-class Xbox360
+class Xbox360 : public Console
 {
     
     public:

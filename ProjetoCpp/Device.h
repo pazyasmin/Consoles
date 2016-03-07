@@ -6,7 +6,7 @@
 #include <string>
 enum MANUFACTURER{ UNSPECIFIED = 0, MICROSOFT = 1, SONY = 2, NINTENDO = 3, SEGA = 4 };
 
-class Device
+class Device 
 {
     friend ostream &operator<<( ostream &, const Device &);
     
@@ -14,6 +14,8 @@ class Device
         Device ();
         Device ( const string &, const string &, const int &, const MANUFACTURER &, const Date &, 
         double , double , bool );
+        Device(const Device &);
+        ~Device();
         MANUFACTURER getManufacturer();
         std::string getDeviceName();
         std::string getModel();

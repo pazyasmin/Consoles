@@ -6,7 +6,7 @@
 #include "Game.h"
 typedef enum { UNKNOWN , XBOXONE, XBOX360 , PLAYSTATION3 , PLAYSTATION4 , WII , WIIU , MEGADRIVE } PLATFORM;
 
-class Console
+class Console : public Device
 {
     //Overload de operadores
     friend ostream &operator<<( ostream &, const Console & );
@@ -15,6 +15,7 @@ class Console
     public:
         Console(); //Construtor vazio
         Console( const string & , const PLATFORM &, const Date &, const string &, const Date &, double , double, int , int ); //Construtor 
+        Console (); //
         Console(const Console &);//Construtor de cópia
         ~Console();//Destrutor
         PLATFORM getPlatform();

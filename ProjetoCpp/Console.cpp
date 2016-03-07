@@ -73,12 +73,19 @@ void Console::alocacaoDinamica(const int njogos)
 //Overload de Operadores
 ostream &operator<<( ostream &output, const Console &con)
 {
-    output << "\nPlataforma: " << con.platform << "\nData de lancamento: " << con.releaseDate
-    << "\nData da ultima atualizacao: " << con.whenLastUpdate << "Atualizacao: " << con.whenLastUpdate
-    << "\nArmazenamento: " << con.totalStorage << "\nEspaco usado: " 
-    << con.usedStorage << "\nNumero de jogos instalados"
-    << con.numGames << "\nNumero de controles conectados: " << con.numControls;
+    output << "\nNome: " << con.deviceName << "\nModelo: " << con.model 
+        << "\nNumero de serie: " << con.numSerie << "\nFabricante: " << con.manufacturer 
+        <<"\nSerie: " << con.numSerie 
+        << "\nData de Fabricacao: " << con.fabricationDate
+        << "\nArmazenamento interno: " << con.internalStorage
+        << "\nArmazenamento externo: " << con.externalStorage
 }
+        << "\nPlataforma: " << con.platform << "\nData de lancamento: " << con.releaseDate
+        << "\nData da ultima atualizacao: " << con.whenLastUpdate << "Atualizacao: " << con.whenLastUpdate
+        << "\nArmazenamento: " << con.totalStorage << "\nEspaco usado: " 
+        << con.usedStorage << "\nNumero de jogos instalados"
+        << con.numGames << "\nNumero de controles conectados: " << con.numControls;
+
 
 istream &operator>> ( istream &input , Console &myConsole)
 {
@@ -93,6 +100,7 @@ istream &operator>> ( istream &input , Console &myConsole)
     input >> myConsole.numGames;
     for ( int i = 0; i < ( myConsole.numGames); ++i)
         input >> myConsole.allGames[i];
+    
 }
 
 const Console &Console::operator=(const Console &outro)
