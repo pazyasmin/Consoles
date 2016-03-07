@@ -90,12 +90,5 @@
       </Completion>
     </Configuration>
   </Settings>
-  <VirtualDirectory Name="src">
-    <File Name="Console.cpp"/>
-    <File Name="Console.h"/>
-    <File Name="Date.cpp"/>
-    <File Name="Date.h"/>
-    <File Name="Xbox360.cpp"/>
-    <File Name="Xbox360.h"/>
-  </VirtualDirectory>
+  <VirtualDirectory Name="src"/>
 </CodeLite_Project>
