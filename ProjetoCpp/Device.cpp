@@ -1,23 +1,21 @@
-#include "Device.h"
 #include <iostream>
-#include <time.h>
-using namespace std;
-//
+#include "Device.h"
+using  namespace std;
 //Construtor default
-Device::Device(): deviceName("Desconhecido"), model("Desconhecido"), numSerie(0), fabricationDate(0,0,0), 
-internalStorage(320.00), externalStorage (0.00)
+Device::Device():deviceName("Meu dispositivo"), model("DPT-3000"), numSerie("DPT123456"), 
+manufacturer(UNSPECIFIED), fabricationDate(12,4,2005), internalStorage(320.00), externalStorage (0.00), 
+powerON(false)
 {
-    powerON = false;
-    manufacturer = UNSPECIFIED;
+
 }
 //Construtor 
-Device::Device( const string &devnome, const string &modelo, const int &nserie, const MANUFACTURER &manuf, const Date &data, 
-const double interno, const double externo, const bool estado )
+Device::Device( const string &devnome, const string &modelo, const int &nserie, const MANUFACTURER &fabricante, 
+const Date &data, double interno, double externo, bool estado )
 {       
         this->deviceName = devnome;
         this->model = modelo;
         this->numSerie = nserie;
-        this->manufacturer = manufac;
+        this->manufacturer = fabricante;
         this->fabricationDate = data;
         this->internalStorage = interno;
         this->externalStorage = externo;
@@ -59,6 +57,11 @@ bool Device::getPowerON()
     return powerON;
 }
 
+string Device::getDeviceName()
+{
+    return deviceName;
+}
+
 MANUFACTURER Device::getManufacturer() 
 {
     return manufacturer;
@@ -74,11 +77,6 @@ Date Device::getFabricationDate()
     return fabricationDate;
 }
 
-double Device::getMaxStorage()
-{
-    return maxStorage;
-}
-
 double Device::getInternalStorage()
 {
     return internalStorage;
@@ -88,28 +86,22 @@ double Device::getExternalStorage()
 {
     return externalStorage;
 }
-
 //Setters
-void Device::setPowerON()
+void Device::setPowerON( bool estado )
 {
-    if ( !getPowerON() )
+    if ( !powerON )
     {
         this->powerON = true;
-        cout << "Ligando console...\n"; //O console é ligado
+        cout << "Ligando dispositivo...\n"; 
     }
     else
     {
-        cout << "Reiniciando console...\n"; //O console é resetado
+        cout << "Reiniciando dispositivo...\n"; 
         this->powerON = false;
         Sleep(10 * 1000);
-        cout << "CDeviceonsole reiniciado.\n"; //O console é resetado
+        cout << "Dispositivo reiniciado.\n"; 
         this->powerON = true;
     }
-}
-
-void Device::setDeviceName( const string &nome)
-{
-    deviceName = nome;
 }
 
 void Device::setManufacturer( const MANUFACTURER &manu) 
@@ -122,23 +114,22 @@ void Device::setModel( const string &modelo)
     model = modelo;
 }
 
-void Device::setNumSerie( string &s )
+void Device::setNumSerie( const string &serie )
 {
-    numSerie = s;
+    numSerie = serie;
 }
 
-void Device::setFabricationDate( Date &data)
+void Device::setFabricationDate( const Date &fData)
 {
-    fabricationDate = data;
+    fabricationDate = fData;
 }
 
-void Device::setInternalStorage( double &interno)
+void Device::setInternalStorage( double interno)
 {
     internalStorage = interno;
 }
 
-
-void Device::setExternalStorage( double &externo)
+void Device::setExternalStorage( double externo)
 {
     externalStorage = externo;
 }

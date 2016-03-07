@@ -1,58 +1,64 @@
 #ifndef CONSOLE_H
 #define CONSOLE_H
-#include <string>
+#include <iostream>
 #include <fstream>
-//Pré-definições plataforma...
-enum PLATFORM { UNSPECIFIED = 0, XBOXONE = 1, XBOX360 = 2, PLAYSTATION3 = 3, PLAYSTATION4 = 4, WII = 5, WIIU = 6, MEGADRIVE = 7} 
+#include <string>
+#include "Game.h"
+typedef enum { UNKNOWN , XBOXONE, XBOX360 , PLAYSTATION3 , PLAYSTATION4 , WII , WIIU , MEGADRIVE } PLATFORM;
 
 class Console
 {
+    //Overload de operadores
+    friend ostream &operator<<( ostream &, const Console & );
+    friend istream &operator>>( istream &, Console & );
     
     public:
-        Console();
-        Console( const PLATFORM &, double , double );
-        friend ostream &operator<<( ostream &, const Console &);
-        void allocDyn( int );
-        ~Console();
+        Console(); //Construtor vazio
+        Console( const string & , const PLATFORM &, const Date &, const string &, const Date &, double , double, int , int ); //Construtor 
+        Console(const Console &);//Construtor de cópia
+        ~Console();//Destrutor
         PLATFORM getPlatform();
-        
+        std::string getConsoleName();
         Date getReleaseDate();
-        string getLastUpdate();
+        std::string getLastUpdate();
         Date getWhenLastUpdate();
         double getTotalStorage();
         double getUsedStorage();
-        int getNumGames();
-        int getNumControls();
-        
+        int getNumGames() const ;
+        int getNumControls() const ;
+        void setConsoleName( const string & );
         void setReleaseDate ( Date );
         void setLastUpdate ( string );
         void setWhenLastUpdate ( Date );
         void setUsedStorage( double );
         void setNumGames( int );
         void setNumControls( int );
-        
+        void installGame ( const string & );
+        void displayGames() const;
         void insertControl();
         void ejectControl();
-        
+        void alocacaoDinamica( int );
+        //Overload de Operadores
+        const Console &operator=( const Console &); //Atribuição
+        bool operator== ( const Console &) const; //Igualdade
+        bool operator!=( const Console &direita ) const //Desigualdade
+        {
+            return !( *this == direita );
+        }
+        int &operator[] (int);
+        int operator[] ( int ) const; //
         
     private:     
+        std::string consoleName;
         PLATFORM platform; 
-        string update;
-        const Date releaseDate;
-        string lastUpdate;
+        Date releaseDate;
+        std::string lastUpdate;
         Date whenLastUpdate; 
-        
         double totalStorage;
         double usedStorage;
         int numGames;
         int numControls; 
         std::string *allGames; 
-    
-    
-            friend void friendStorage (Device &oDev, Console &oCon);
-            void friendStorage(Device &oDev, Console &oCon)
-            {
-                oCon.totalStorage = oDev.internalStorage + oDev.externalStorage; 
-            }
+        const static int MAXUSERS = 10;
 };
 #endif // CONSOLE_H

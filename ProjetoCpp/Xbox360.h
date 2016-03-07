@@ -1,13 +1,14 @@
 #ifndef XBOX360_H
 #define XBOX360_H
-#include <string>
+#include <iostream>
 #include <fstream>
-//
+#include <string>
+
 class Xbox360
 {
+    
     public:
         Xbox360( bool , const string &);
-        friend ostream &operator<<( ostream &, const Xbox360 &);
         Xbox360();
         ~Xbox360();
         void setKinectON( bool );
@@ -15,7 +16,6 @@ class Xbox360
        
     private:     
         bool kinectON;
-        const static int MAXUSERS = 10;
 
 };
 
