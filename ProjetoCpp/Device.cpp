@@ -1,138 +1,107 @@
-#include <iostream>
 #include "Device.h"
-using  namespace std;
-//Construtor default
-Device::Device():deviceName("Meu dispositivo"), model("DPT-3000"), numSerie("DPT123456"), 
-manufacturer(UNSPECIFIED), fabricationDate(12,4,2005), internalStorage(320.00), externalStorage (0.00), 
-powerON(false)
+#include <iostream>
+#include "windows.h" 
+
+using namespace std;
+
+Device::Device(): power(false), intStorage(0.00)
 {
-
+    for (int i = MAXUSBPORTS; i > 0; i--)
+        extStorage[MAXUSBPORTS] = 0.00; 
 }
-//Construtor 
-Device::Device( const string &devnome, const string &modelo, const int &nserie, const MANUFACTURER &fabricante, 
-const Date &data, double interno, double externo, bool estado )
-{       
-        this->deviceName = devnome;
-        this->model = modelo;
-        this->numSerie = nserie;
-        this->manufacturer = fabricante;
-        this->fabricationDate = data;
-        this->internalStorage = interno;
-        this->externalStorage = externo;
-        this->powerON = estado;
-}   
-//Construtor Cópia
-Device::Device( const Device &c )
+
+Device::Device(const Device &myDevice)
 {  
-        deviceName = c.deviceName;
-        model = c.model;
-        numSerie = c.numSerie;
-        manufacturer = c.manufacturer;
-        fabricationDate = c.fabricationDate;
-        internalStorage = c.internalStorage;
-        externalStorage = c.externalStorage;
-        powerON = c.powerON;
+    power = myDevice.power;
+    intStorage = myDevice.intStorage;
+    for (int i = MAXUSBPORTS; i > 0; i--)
+        extStorage[i] = myDevice.extStorage[i];
 }
 
-//Destrutor 
 Device::~Device()
 {       
-   
+
 }
 
-//Operador <<
-ostream &operator<<( ostream &output, const Device &dev)
+ostream &operator<<(ostream &out, const Device &myDevice)
 {
-    output << "\nNome: " << dev.deviceName << "\nModelo: " << dev.model 
-        << "\nNumero de serie: " << dev.numSerie << "\nFabricante: " << dev.manufacturer 
-        << "\nModelo"<< dev.model <<"\nSerie: " << dev.numSerie 
-        << "\nData de Fabrica: " << dev.fabricationDate
-        << "\nArmazenamento interno: " << dev.internalStorage
-        << "\nArmazenamento externo: " << dev.externalStorage
-}
-
-//Getters
-bool Device::getPowerON()
-{
-    return powerON;
-}
-
-string Device::getDeviceName()
-{
-    return deviceName;
-}
-
-MANUFACTURER Device::getManufacturer() 
-{
-    return manufacturer;
-}
-
-string Device::getNumSerie()
-{
-    return numSerie;
-}
-
-Date Device::getFabricationDate()
-{
-    return fabricationDate;
-}
-
-double Device::getInternalStorage()
-{
-    return internalStorage;
-}
-
-double Device::getExternalStorage()
-{
-    return externalStorage;
-}
-//Setters
-void Device::setPowerON( bool estado )
-{
-    if ( !powerON )
+    out <<"\tInformacoes de Dispositivo:\n\n";
+    if (myDevice.power)
     {
-        this->powerON = true;
-        cout << "Ligando dispositivo...\n"; 
+        out <<"Armazenamento interno: "<< myDevice.intStorage << " GB.\n";
+        for (int i = myDevice.MAXUSBPORTS; i > 0; i--)
+            out <<"Armazenamento externo: \nPorta "<< i << " = "<< myDevice.extStorage[i] << " GBytes.\n";
+    }
+    else
+        out <<"Dispositivo desligado.\n";
+    return out;
+}
+
+void Device::insStorageDevice(const float &ext, int porta)
+{
+    cout <<"\nInserindo dispositivo de armazenamento...\n\n";
+    if (porta >= 0 && porta < MAXUSBPORTS)
+    {
+    
+        if (extStorage[porta] != 0)
+            cout << "Acao negada. A porta especificada esta em uso.\n";
+        else
+        {
+            extStorage[porta] = ext;
+            cout <<"Seu dispositivo de armazenamento esta pronto para uso!\n";
+        }
+    }
+    else
+    cout << "Acao negada. A porta especificada eh inexistente.\n";
+}
+
+
+void Device::remStorageDevice(int porta)
+{
+    cout <<"\nRemovendo dispositivo de armazenamento [porta "<< porta <<"]...\n\n";
+    if (porta < 0 || porta > MAXUSBPORTS)
+    {
+    
+        if (extStorage[porta] != 0.00)
+        {
+            extStorage[porta] = 0.00;
+            cout <<"O dispositivo foi removido com sucesso!\n";
+        }
+        else
+            cout << "Acao negada. A porta ja esta livre.\n";
+    }
+    else
+        cout << "Acao negada. A porta especificada eh inexistente.\n";
+}
+
+float Device::calcAvailableStorage()
+{
+    availableStorage = intStorage;
+    for (int i=MAXUSBPORTS; i>0; i--)
+    {
+        availableStorage += extStorage[i];
+    }
+    return availableStorage;
+}
+
+void Device::power_ON()
+{
+    if (!power)
+    {
+        power = true;
+        cout << "\nLigando dispositivo...\n"; 
     }
     else
     {
-        cout << "Reiniciando dispositivo...\n"; 
-        this->powerON = false;
+        cout << "\nReiniciando dispositivo...\n"; 
+        power = false;
         Sleep(10 * 1000);
+        power = true;
         cout << "Dispositivo reiniciado.\n"; 
-        this->powerON = true;
+        power = true;
     }
 }
 
-void Device::setManufacturer( const MANUFACTURER &manu) 
-{
-    manufacturer = manu;
-}
-
-void Device::setModel( const string &modelo)
-{
-    model = modelo;
-}
-
-void Device::setNumSerie( const string &serie )
-{
-    numSerie = serie;
-}
-
-void Device::setFabricationDate( const Date &fData)
-{
-    fabricationDate = fData;
-}
-
-void Device::setInternalStorage( double interno)
-{
-    internalStorage = interno;
-}
-
-void Device::setExternalStorage( double externo)
-{
-    externalStorage = externo;
-}
 
 
 

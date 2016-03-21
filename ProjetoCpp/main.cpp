@@ -1,14 +1,8 @@
-#include "Device.h"
-#include "Console.h"
-#include "Xbox360.h"
-#include <iostream>
-
-using namespace std;
+#include <stdio.h>
 
 int main(int argc, char **argv)
 {
-    Device myDevice;
-    
-    myDevice.powerON( );
+	printf("hello world\n");
 	return 0;
 }
+

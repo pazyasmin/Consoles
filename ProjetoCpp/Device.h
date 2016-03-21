@@ -1,44 +1,35 @@
+#include <string>
+#include <ostream>
+#include <vector>
+
+using std::ostream;
+
 #ifndef DEVICE_H
 #define DEVICE_H
-#include "Date.h"
-#include <iostream>
-#include <fstream>
-#include <string>
-enum MANUFACTURER{ UNSPECIFIED = 0, MICROSOFT = 1, SONY = 2, NINTENDO = 3, SEGA = 4 };
 
-class Device 
+class Device
 {
-    friend ostream &operator<<( ostream &, const Device &);
+    friend ostream &operator<<(ostream &, const Device &);
     
-    public:
-        Device ();
-        Device ( const string &, const string &, const int &, const MANUFACTURER &, const Date &, 
-        double , double , bool );
+    public: 
+        Device();
         Device(const Device &);
         ~Device();
-        MANUFACTURER getManufacturer();
-        std::string getDeviceName();
-        std::string getModel();
-        std::string getNumSerie();
-        Date getFabricationDate();
-        double getInternalStorage();
-        double getExternalStorage();
-        void setManufacturer ( const MANUFACTURER & );
-        void setDeviceName ( const string & );
-        void setNumSerie ( const string & );
-        void setFabricationDate ( const Date & );
-        void setInternalStorage ( double );
-        void setExternalStorage ( double );
-        void setPowerON ( bool ); 
+        void insStorageDevice(const float &, int);
+        void remStorageDevice(int);
+        float calcAvailableStorage();
+        void power_ON();
+        void power_OFF();
+        const Device & operator=(const Device &);
+    private:
+        const static int MAXUSBPORTS = 2;
     protected:
-        bool powerON;
-        double internalStorage;
-        double externalStorage;
-        const static int CONTROLSLOTS = 4;
-        MANUFACTURER manufacturer; const 
-        std::string deviceName; 
-        std::string model; const 
-        std::string numSerie; const 
-        Date fabricationDate; const
+        bool power;
+        float intStorage;
+        float extStorage[MAXUSBPORTS]; //Aqui, trata-se do armazenamento TOTAL do drive e não o espaço usado ou disponível.
+        float availableStorage;
 };
+
 #endif // DEVICE_H
+
+
