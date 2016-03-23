@@ -1,8 +1,7 @@
 #include <string>
 #include <ostream>
-#include <vector>
-
 using std::ostream;
+using std::string;
 
 #ifndef DEVICE_H
 #define DEVICE_H
@@ -15,19 +14,24 @@ class Device
         Device();
         Device(const Device &);
         ~Device();
-        void insStorageDevice(const float &, int);
-        void remStorageDevice(int);
-        float calcAvailableStorage();
+        void refreshTotalStorage();
+        void insertStorageDevice(const float &, int);
+        void removeStorageDevice(int);
+        void displayDeviceInfo() const;
         void power_ON();
         void power_OFF();
-        const Device & operator=(const Device &);
-    private:
-        const static int MAXUSBPORTS = 2;
+        
+        const Device &operator=(const Device &);
+        bool operator==(const Device &) const;
+    
     protected:
+        const static int USB_PORTS = 2;
         bool power;
+        string manufacturer;
         float intStorage;
-        float extStorage[MAXUSBPORTS]; //Aqui, trata-se do armazenamento TOTAL do drive e não o espaço usado ou disponível.
-        float availableStorage;
+        float extStorage[USB_PORTS]; 
+        float totalStorage;
+
 };
 
 #endif // DEVICE_H

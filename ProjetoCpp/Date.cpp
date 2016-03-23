@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Date.h"
 using  namespace std;
 
@@ -39,20 +38,20 @@ Date Date::getDate()
    return ( day , month, year );
 }
 
-bool Date::leapYear( int anoTeste)
+bool Date::leapYear( int ano)
 {
-    if ( anoTeste % 400 == 0) || (anoTeste % 100 != 0 && anoTeste % 4 == 0)
+    if ( ano % 400 == 0) || (ano % 100 != 0 && ano % 4 == 0)
         return true; 
     else
         return false;    
 }
 
-bool Date::endOfMonth ( int diaTeste ) const 
+bool Date::endOfMonth ( int dia ) const 
 {
-    if ( month == 2 && leapYear( ano ) )
-        return diaTeste == 29;
+    if (month == 2 && leapYear(ano))
+        return dia == 29;
     else 
-        return diaTeste == daysPerMonth[ month ];
+        return dia == daysPerMonth[month];
 }
 //Overload de Operadores
 Date &Date::operator++()
@@ -68,19 +67,19 @@ Date Date::operator++( int )
     return temp; 
 }
 
-const Date &Date::operator+=( int maisUmDia )
+const Date &Date::operator+=(int maisUmDia)
 {
-    for ( int i = 0; i < maisUmDia; ++i )
+    for (int i = 0; i < maisUmDia; ++i)
     helpIncrement();
     return *this; 
 } 
 
 void Date::helpIncrement()
 {
-    if ( !endOfMonth( day ) )
+    if (!endOfMonth(day))
         ++day; 
     else
-        if ( month < 12 ) // day is end of month and month < 12
+        if (month < 12) 
         {
             ++month; 
             day = 1;
@@ -93,11 +92,11 @@ void Date::helpIncrement()
         }
 } 
 
-ostream &operator<<( ostream &output, const Date &d )
+ostream &operator<<( ostream &output, const Date &data )
 {
  static string monthName[ 13 ] = { "", "Janeiro", "Fevereiro",
  "Marco", "Abril", "Maio", "Junho", "Julho", "Agosto",
  "Setembro", "Outubro", "Novembro", "Dezembro" };
-    output << monthName[ d.month ] << ' ' << d.day << ", " << d.year;
+    output << monthName[ data.month ] << ' ' << data.day << ", " << data.year;
     return output; 
 }

@@ -1,6 +1,5 @@
 #include <string>
 #include <ostream>
-#include <vector>
 using std::string;
 using std::ostream;
 
@@ -12,20 +11,19 @@ class Controller
     friend ostream &operator<<(ostream &, const Controller &);
     public: 
         Controller();
-        Controller(const bool &, const int &, const int &);
+        Controller(const bool &, const int &);
         Controller(const Controller &);
         ~Controller();
+        bool getIsConnected();
+        bool setIsConnected(const bool &);
         bool getWireless();
         void setWireless(const bool &);
-        
+        int getSlot();
+        void setSlot(const int &);
         const Controller &operator=(const Controller &); 
-         
     private:
+        bool isConnected;
         bool wireless;
-        std::vector <bool> buttons;
-        int numButtons;
-        int coordinates[3];
         int slot;
-        const static int MAXBUTTONS = 15; 
 };
-#endif // GAME_H
+#endif // CONTROLLER_H

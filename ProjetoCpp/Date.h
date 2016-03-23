@@ -1,7 +1,6 @@
 #ifndef DATA_H
 #define	DATA_H
 #include <iostream>
-#include <fstream>
 #include <string>
 
 class Date 
@@ -9,7 +8,7 @@ class Date
     friend ostream &operator<<( ostream &, const Date &);
     public:
         static const int monthsPerYear = 12;
-        Date(int dia = 1, int mes = 1, int ano = 1900);
+        Date(int dia = 1, int mes = 1, int ano = 1999);
         ~Date();
         void setDate( int , int , int );
         Date getDate();
@@ -27,4 +26,4 @@ class Date
         
         void helpIncrement();
 };
-#endif	/* DATA_H */
+#endif	// DATE_H 

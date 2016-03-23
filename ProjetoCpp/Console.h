@@ -1,10 +1,11 @@
 #include "Device.h"
+#include "Date.h"
 #include "Game.h"
 #include "Controller.h"
-#include "Date.h"
+#include "User.h"
+
 #include <string>
 #include <ostream>
-#include <vector>
 
 using std::string;
 using std::ostream;
@@ -16,37 +17,39 @@ class Console : public Device
 {
     friend ostream &operator<<(ostream &, const Console &);
     public:
-        Console( ); 
-        Console(const string &, const string &, const Date &, const string &, const float &);        
+        Console();
         Console(const Console &);
+        Console (const int &, const int &, const int &);
         ~Console();
-        void insertController(const Controller &);
-        void removeController(const int &);
-        void installGame(const Game &);
-        void uninstallGame (const Game &);
+        void refreshFreeSpace();
+        void refreshUsedSpace(const float &);
+        void installGame(Game);
+        void createUser(User);
+        void insertController(Controller);
+        void removeController(int);
         void displayGames() const;
-        void sistemInfo() const; 
-        void format();
-        void update();
+        void displayUsers() const; 
+        void displayConsoleInfo() const;
+        void systemUpdate();
+        void userLogIn();
         void menu();
-        void play();
-        
+        void play(Game);
         const Console &operator=(const Console &); 
-  
-    protected:
-        string platform;
-        string manufacturer;
-        Date releaseDate;
-        string version;
-        std::vector<Game> games;
-        std::vector<Controller> controllers;
-        int numGames;
-        int numControllers; 
-        float availableSpace; //Soma do armazenamento externo e interno
-        float usedSpace;      //Espaço usado total
+	    bool operator==(const Console &) const;
     
-    private:
-        const static int MAXSLOTS = 4;
+    protected:
+        const static int CONTROLLER_SLOTS = 4;
+        const static int MAX_USERS = 10;
+        string platform;
+        Date releaseDate;
+        string versionOS;
+        float usedStorage;
+        float freeStorage;
+        Game* games;
+        User* users;
+        Controller controllers[CONTROLLER_SLOTS-1];     
+        int nGames;
+        int nUsers;
 };
 
 #endif // CONSOLE_H

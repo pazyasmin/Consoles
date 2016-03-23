@@ -6,28 +6,26 @@ using std::ostream;
 #ifndef GAME_H
 #define	GAME_H
 
-class Game
+class Game 
 {
     friend ostream &operator<<(ostream &, const Game &);
     public: 
         Game();
-        Game(const string &, const string &, const float &);
+        Game(const string &, const string &, const float &, const bool &);
         Game(const Game &);
         ~Game();
         string getTitle();
         string getPlatform();
-        float getReqSize();
-        void setTitle(const string &);
-        void setPlatform(const string &);
-        void setReqSize(const float &);
-        void gameInfo();
+        float getSize();
+        bool getMultiplayer();
+        void gameInfo() const;
         
-        const Game &operator=(const Game &); 
+        bool operator==(const Game &) const;
     
     private: 
         string title; 
         string platform;
-        float reqSize;
+        float size;
+        bool multiplayer;
 };
-
 #endif // GAME_H

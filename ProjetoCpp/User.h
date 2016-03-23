@@ -16,11 +16,12 @@ class User
         ~User();
         string getName();
         string getGamertag();
-        void setName(string);
-        void setGamertag(string);
-        void userInfo();
-        
-        const User &operator=( const User &); 
+        void setName(const string &);
+        void setGamertag(const string &);
+        void userInfo() const;
+    
+        const User &operator=(const User &); 
+        bool operator==(const User &) const;
     
     private: 
         string name;
