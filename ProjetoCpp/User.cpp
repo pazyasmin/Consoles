@@ -22,23 +22,23 @@ User::~User()
       
 }
 
-string User::getName()
+string User::getName() const 
 {
     return name;
 }
 
-string User::getGamertag()
+string User::getGamertag() const
 {
     return gamertag;
 }
 
 
-void User::setName(const string &nm)
+void User::setName(string nm)
 {
     name = nm;
 }
 
-void User::setGamertag(const string &gtag)
+void User::setGamertag(string gtag)
 {
     gamertag = gtag;
 }

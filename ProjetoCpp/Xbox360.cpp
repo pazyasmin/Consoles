@@ -1,31 +1,31 @@
-#include <iostream>
 #include "Xbox360.h"
+#include <iostream>
 #include <windows.h>
-#define LATEST_OSVERSION "10.0.10586.1026"
+
 using  namespace std;
 
-//const static string Xbox360::LATEST_OSVERSION[]= "10.0.10586.1026";
-
-Xbox360::Xbox360(): Console(22,11,2005)
+Xbox360::Xbox360()
 {
     power = false;
     manufacturer = "Microsoft";
     intStorage = 250.00;
-    totalStorage = 250.00;
-    platform = "Xbox 360";
-    versionOS = "1.0.0";
-    usedStorage = 0.00; 
-    freeStorage = 250.00; 
-    nGames = 0 ; nUsers = 0;
-    
     for (int i = 0; i < USB_PORTS; i++)
         extStorage[i] = 0.00; 
  
+    platform = "Xbox 360";
+    softwareVersion = 1.0;
+    releaseDate = Date(22,11,2005);
+    lastUpdated = Date(22,11,2005);
+    storage[0] = 250.00;
+    storage[1] = 0.00;
+    storage[2] = 250.00;
+    internetConnection = false;
+    nGames = 0 ; nUsers = 0;
+
    for (int i=1 ; i <= CONTROLLER_SLOTS; i++)
     {
-        controllers[i].setIsConnected(false);
+        controllers[i].setConnected(false);
         controllers[i].setWireless(false);
-        controllers[i].setSlot(0); 
     }
     
     kinect = false;
@@ -34,20 +34,20 @@ Xbox360::Xbox360(): Console(22,11,2005)
 Xbox360::Xbox360(const Xbox360 &x)
 : Console(static_cast<Console> (x))
 {
-   kinect = x.kinect;
-   //
     power = x.power;
     manufacturer = x.manufacturer;
     intStorage = x.intStorage;
     for (int i = 0; i < USB_PORTS; i++)
         extStorage[i] = x.extStorage[i];
- //       
+
     platform = x.platform;
-    manufacturer = x.manufacturer;
-    releaseDate = x.releaseDate;
-    versionOS = x.versionOS;
-    freeStorage = x.freeStorage;
-    usedStorage = x.usedStorage;
+    softwareVersion = x.softwareVersion;
+    lastUpdated = x.lastUpdated;
+    storage[0] = x.storage[0];
+    storage[1] = x.storage[1];
+    storage[2] = x.storage[2];
+    internetConnection = x.internetConnection;
+    nGames = x.nGames ; nUsers = x.nGames;
     
     for (int i = 0; i < nGames; i++)
         games[i] = x.games[i];
@@ -56,11 +56,18 @@ Xbox360::Xbox360(const Xbox360 &x)
     
     nGames = x.nGames;
     nUsers = x.nUsers;
+
+    kinect = x.kinect;
 }
 
 Xbox360::~Xbox360()
 {
     
+}
+
+void Xbox360::getKinect() const
+{
+    return kinect;
 }
 
 void Xbox360::kinect_ON()
@@ -85,44 +92,39 @@ void Xbox360::kinect_OFF()
         cout << "\nYour kinect is already turned off.";
 }
 
-void Xbox360::xStart(const Xbox360 &x)
+void Xbox360::xboxStart()
 {
     power_ON();
-    displayDeviceInfo();
-    displayConsoleInfo();
-    cout <<"\n\t---\\---- Xbox 360 ----//---";
-    Sleep (5*1000);
-    cout <<"\nLoading...";
-    Sleep (5*1000);
+    deviceInfo();
+    consoleInfo();
+    cout <<"\n\t________**** Xbox 360 ****_________";
+    cout <<"\nLoading Xbox 360. Please wait...";
+    Sleep (10*1000);
     cout <<"\nScanning components...";
-    Sleep (5*1000);
-    displayXboxInfo();
-    
+    Sleep (10*1000);
+    xboxInfo();
+    Sleep (20*1000);
+    system ("cls");
 }
 
-
-void Xbox360::displayXboxInfo() const
+void Xbox360::xboxInfo() const
 {
-    if (kinect)
-        cout <<"\nKinect: ON";
-    else
-        cout <<"\nKinect: OFF";
+    cout <<"\nKinect: " << boolalpha << getKinect();
 }
-
 
 ostream &operator<<(ostream &out, const Xbox360 &x)
 {
     out << static_cast <Console> (x);
     if (x.power)
     {
-        x.displayDeviceInfo();
-        x.displayConsoleInfo();
+        x.deviceInfo();
+        x.consoleInfo();
         x.displayUsers();
         x.displayGames();
         if (x.kinect)
             out <<"\nKinect: ON";
-                else
-                    out <<"\nKinect: OFF";
+        else
+            out <<"\nKinect: OFF";
     }
     return out;
 }
@@ -135,15 +137,18 @@ const Xbox360& Xbox360::operator=(const Xbox360 &x)
     intStorage = x.intStorage;
     for (int i = 0; i < USB_PORTS; i++)
         extStorage[i] = x.extStorage[i];
-    freeStorage = x.freeStorage;
-//
+
     platform = x.platform;
+    softwareVersion = x.softwareVersion;
     releaseDate = x.releaseDate;
-    versionOS = x.versionOS;
-    usedStorage = x.usedStorage;
-    nGames = x.nGames;
-    nUsers = x.nUsers;
+    lastUpdated = x.lastUpdated;
+    internetConnection = x.internetConnection;
+    nGames = x.nGames ; 
+    nUsers = x.nGames;
     
+    for (int i=0; i<3 ; i++)
+        storage[i] = x.storage[i];
+        
     delete [] users;
     delete [] games;
     
@@ -151,14 +156,11 @@ const Xbox360& Xbox360::operator=(const Xbox360 &x)
     games = new Game[nGames];
     
     for (int i=0; i < nUsers; i++)
-    {
         users[i] = x.users[i];
-    }
+
     for (int i=0; i < nGames; i++)
-    {
         games[i] = x.games[i];
-    }
-//
+
     kinect = x.kinect;
     return x;
 }
@@ -166,28 +168,7 @@ const Xbox360& Xbox360::operator=(const Xbox360 &x)
 bool Xbox360::operator==(const Xbox360 &x) const
 {
     static_cast <Xbox360>(x);
-    if (power != x.power)
-        return false;
-    if (manufacturer != x.manufacturer)
-        return false;
-    if (totalStorage != x.totalStorage)
-        return false;
-    if(platform != x.platform)
-        return false;
-
-    if(versionOS != x.versionOS)
-        return false;
-    if(usedStorage != x.usedStorage)
-        return false;
-    if(freeStorage != x.freeStorage)
-        return false;
-    if(nUsers != x.nUsers)
-        return false;
-    if(nGames != x.nGames)
-        return false;
-    
     if (kinect != x.kinect)
         return false;
-
 	return true;
 }

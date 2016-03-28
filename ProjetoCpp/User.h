@@ -1,10 +1,10 @@
+#ifndef USER_H
+#define	USER_H
+
 #include <string>
 #include <ostream>
 using std::string;
 using std::ostream;
-
-#ifndef USER_H
-#define	USER_H
 
 class User
 {
@@ -16,8 +16,10 @@ class User
         ~User();
         string getName();
         string getGamertag();
-        void setName(const string &);
-        void setGamertag(const string &);
+        void setName(string);
+        void setGamertag(string);
+        string getName() const;
+        string getGamertag() const;
         void userInfo() const;
     
         const User &operator=(const User &); 

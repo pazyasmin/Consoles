@@ -1,8 +1,12 @@
+#ifndef CONSOLE_H
+#define CONSOLE_H
+
 #include "Device.h"
 #include "Date.h"
 #include "Game.h"
 #include "Controller.h"
 #include "User.h"
+//#include "Xbox360.h"
 
 #include <string>
 #include <ostream>
@@ -10,46 +14,49 @@
 using std::string;
 using std::ostream;
 
-#ifndef CONSOLE_H
-#define CONSOLE_H
-
 class Console : public Device
-{
+{                                                           
     friend ostream &operator<<(ostream &, const Console &);
+    
     public:
         Console();
         Console(const Console &);
         Console (const int &, const int &, const int &);
         ~Console();
-        void refreshFreeSpace();
-        void refreshUsedSpace(const float &);
-        void installGame(Game);
-        void createUser(User);
-        void insertController(Controller);
-        void removeController(int);
-        void displayGames() const;
+        bool getInternet();
+        void setInternet (bool);
+        void insertController(const Controller &, unsigned short int);
+        void removeController(unsigned short int);
+        void installGame(const Game &);                    
+        void uninstallGame();                   
+        void createUser(const User &);                      
+        void deleteUser();
+        void refreshUsedSpace(float); 
+        void refreshFreeSpace(); 
+        void refreshTotalSpace();
+        int findGame(string, int);
+        int findUser(string, int);
+        void displayGames() const;                          
         void displayUsers() const; 
-        void displayConsoleInfo() const;
-        void systemUpdate();
-        void userLogIn();
-        void menu();
-        void play(Game);
-        const Console &operator=(const Console &); 
-	    bool operator==(const Console &) const;
+        void consoleInfo() const;                           
+        void update();                                 
+        void play(string); 
+       
+        const Console &operator=(const Console &);              
+	    bool operator==(const Console &) const;                
     
     protected:
-        const static int CONTROLLER_SLOTS = 4;
-        const static int MAX_USERS = 10;
-        string platform;
-        Date releaseDate;
-        string versionOS;
-        float usedStorage;
-        float freeStorage;
-        Game* games;
-        User* users;
-        Controller controllers[CONTROLLER_SLOTS-1];     
-        int nGames;
-        int nUsers;
+        string platform;                                        //Plataforma do console 
+        float softwareVersion;                                  //Versão de software do sistema
+        Date releaseDate;                                       //Data de lançamento
+        Date lastUpdated;                                       //Data da última atualização
+        float storage[3];                                       //storage[0] = espaço total| storage[1] = espaço usado | storage[2] = espaço livre
+        bool internetConnection;                                //Conexão à internet
+        Game* games;                                            //Lista de jogos instalados
+        User* users;                                            //Lista de usuários
+        int nGames;                                             //Nº de jogos
+        int nUsers;                                             //Nº de usuários
+        const static unsigned short int CONTROLLER_SLOTS = 4;   //Nº máximo de entrada para controles (generalizei para 4 entradas)
+        Controller controllers[CONTROLLER_SLOTS];               //Vetor de controles     
 };
-
 #endif // CONSOLE_H

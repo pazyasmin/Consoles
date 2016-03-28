@@ -3,39 +3,35 @@
 using  namespace std;
 
 Game::Game()
-:title(" "), platform(" "), size(0.00), multiplayer (false)
+:title(" "), platform(" "), size(0.00)
 {
+    
 }    
-Game::Game(const string &t, const string &p, const float &sz, const bool &m)
+Game::Game(const string &t, const string &p, const float &s)
 {
 }
-Game::Game(const Game &g)
+Game::Game(const Game &game)
 {
-    title = g.title;
-    platform = g.platform;
-    size = g.size;
-    multiplayer = g.multiplayer;
+    title = game.title;
+    platform = game.platform;
+    size = game.size;
 }
         
 Game::~Game()
 {
 }
-string Game::getTitle()
+string Game::getTitle() const
 {
     return title;
 }
-string Game::getPlatform()
+string Game::getPlatform() const 
 {
     return platform;
 }
 
-float Game::getSize()
+float Game::getSize() const 
 {
     return size;
-}
-bool Game::getMultiplayer()
-{
-    return multiplayer;
 }
 
 void Game::gameInfo() const
@@ -43,33 +39,30 @@ void Game::gameInfo() const
     cout << "\nTitle: "<< title;
     cout << "\nPlatform: "<< platform;
     cout << "\nSize: "<< size;
-    if (multiplayer)
-        cout << "\nMultiplayer: Yes ";
-    else
-        cout <<"\nMultiplayer: No ";
 }
 
-ostream &operator<<(ostream &out, const Game &g)
+ostream &operator<<(ostream &out, const Game &game)
 {
-    out << "\nTitle: "<< g.title;
-    out << "\nPlatform: "<< g.platform;
-    out << "\nSize: "<< g.size;
-    if (g.multiplayer)
-        out << "\nMultiplayer: Yes ";
-    else
-        out <<"\nMultiplayer: No ";
+    out << "\nTitle: "<< game.title;
+    out << "\nPlatform: "<< game.platform;
+    out << "\nSize: "<< game.size;
     return out;
 }
 
-bool Game::operator==(const Game &g) const
+const Game& Game::operator=(const Game &game)
 {
-    if (title != g.title)
+    title = game.title;
+    platform = game.platform;
+    size = game.size;
+}
+
+bool Game::operator==(const Game &game) const
+{
+    if (title != game.title)
         return false;
-    if (platform != g.platform)
+    if (platform != game.platform)
         return false;
-    if (size != g.size)
-        return false;
-    if( multiplayer != g.multiplayer)
+    if (size != game.size)
         return false;
     return true;
 }

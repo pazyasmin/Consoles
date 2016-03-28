@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=YasminPaz
-Date                   :=21/03/2016
+Date                   :=28/03/2016
 CodeLitePath           :="C:/Program Files (x86)/CodeLite"
 LinkerName             :=C:/MinGW-4.6.1/bin/g++.exe
 SharedObjectLinkerName :=C:/MinGW-4.6.1/bin/g++.exe -shared -fPIC
@@ -62,7 +62,7 @@ AS       := C:/MinGW-4.6.1/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/ProjetoCpp_Console.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Date.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Device.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_main.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/ProjetoCpp_Console.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Date.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Device.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_main.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Xbox360.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Game.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_User.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Controller.cpp$(ObjectSuffix) 
 
 
 
@@ -124,6 +124,38 @@ $(IntermediateDirectory)/ProjetoCpp_main.cpp$(DependSuffix): ProjetoCpp/main.cpp
 
 $(IntermediateDirectory)/ProjetoCpp_main.cpp$(PreprocessSuffix): ProjetoCpp/main.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ProjetoCpp_main.cpp$(PreprocessSuffix) "ProjetoCpp/main.cpp"
+
+$(IntermediateDirectory)/ProjetoCpp_Xbox360.cpp$(ObjectSuffix): ProjetoCpp/Xbox360.cpp $(IntermediateDirectory)/ProjetoCpp_Xbox360.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/YasminPaz/Documents/PROG2/Xbox360/ProjetoCpp/Xbox360.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ProjetoCpp_Xbox360.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/ProjetoCpp_Xbox360.cpp$(DependSuffix): ProjetoCpp/Xbox360.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ProjetoCpp_Xbox360.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/ProjetoCpp_Xbox360.cpp$(DependSuffix) -MM "ProjetoCpp/Xbox360.cpp"
+
+$(IntermediateDirectory)/ProjetoCpp_Xbox360.cpp$(PreprocessSuffix): ProjetoCpp/Xbox360.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ProjetoCpp_Xbox360.cpp$(PreprocessSuffix) "ProjetoCpp/Xbox360.cpp"
+
+$(IntermediateDirectory)/ProjetoCpp_Game.cpp$(ObjectSuffix): ProjetoCpp/Game.cpp $(IntermediateDirectory)/ProjetoCpp_Game.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/YasminPaz/Documents/PROG2/Xbox360/ProjetoCpp/Game.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ProjetoCpp_Game.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/ProjetoCpp_Game.cpp$(DependSuffix): ProjetoCpp/Game.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ProjetoCpp_Game.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/ProjetoCpp_Game.cpp$(DependSuffix) -MM "ProjetoCpp/Game.cpp"
+
+$(IntermediateDirectory)/ProjetoCpp_Game.cpp$(PreprocessSuffix): ProjetoCpp/Game.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ProjetoCpp_Game.cpp$(PreprocessSuffix) "ProjetoCpp/Game.cpp"
+
+$(IntermediateDirectory)/ProjetoCpp_User.cpp$(ObjectSuffix): ProjetoCpp/User.cpp $(IntermediateDirectory)/ProjetoCpp_User.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/YasminPaz/Documents/PROG2/Xbox360/ProjetoCpp/User.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ProjetoCpp_User.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/ProjetoCpp_User.cpp$(DependSuffix): ProjetoCpp/User.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ProjetoCpp_User.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/ProjetoCpp_User.cpp$(DependSuffix) -MM "ProjetoCpp/User.cpp"
+
+$(IntermediateDirectory)/ProjetoCpp_User.cpp$(PreprocessSuffix): ProjetoCpp/User.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ProjetoCpp_User.cpp$(PreprocessSuffix) "ProjetoCpp/User.cpp"
+
+$(IntermediateDirectory)/ProjetoCpp_Controller.cpp$(ObjectSuffix): ProjetoCpp/Controller.cpp $(IntermediateDirectory)/ProjetoCpp_Controller.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/YasminPaz/Documents/PROG2/Xbox360/ProjetoCpp/Controller.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ProjetoCpp_Controller.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/ProjetoCpp_Controller.cpp$(DependSuffix): ProjetoCpp/Controller.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ProjetoCpp_Controller.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/ProjetoCpp_Controller.cpp$(DependSuffix) -MM "ProjetoCpp/Controller.cpp"
+
+$(IntermediateDirectory)/ProjetoCpp_Controller.cpp$(PreprocessSuffix): ProjetoCpp/Controller.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ProjetoCpp_Controller.cpp$(PreprocessSuffix) "ProjetoCpp/Controller.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

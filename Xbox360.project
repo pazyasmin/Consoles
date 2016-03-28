@@ -99,8 +99,12 @@
     <File Name="ProjetoCpp/Device.h"/>
     <File Name="ProjetoCpp/main.cpp"/>
     <File Name="ProjetoCpp/Xbox360.h"/>
-    <File Name="ProjetoCpp/Game.h"/>
+    <File Name="ProjetoCpp/Xbox360.cpp"/>
     <File Name="ProjetoCpp/User.h"/>
     <File Name="ProjetoCpp/Controller.h"/>
+    <File Name="ProjetoCpp/Game.h"/>
+    <File Name="ProjetoCpp/Game.cpp"/>
+    <File Name="ProjetoCpp/User.cpp"/>
+    <File Name="ProjetoCpp/Controller.cpp"/>
   </VirtualDirectory>
 </CodeLite_Project>
