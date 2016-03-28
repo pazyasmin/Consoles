@@ -97,8 +97,7 @@ void Xbox360::start()
     power_ON();
     deviceInfo();
     consoleInfo();
-    cout <<"\n\t________**** Xbox 360 ****_________";
-    cout <<"\nLoading Xbox 360. Please wait...";
+    cout << "\n\t__________**** Xbox 360 ****__________";    cout <<"\nLoading Xbox 360. Please wait...";
     Sleep (10*1000);
     cout <<"\nScanning components...";
     Sleep (10*1000);
@@ -131,7 +130,6 @@ ostream &operator<<(ostream &out, const Xbox360 &x)
 
 const Xbox360& Xbox360::operator=(const Xbox360 &x)
 {
-    static_cast<Xbox360> ( *this ) = Xbox360( static_cast< Xbox360 > (x) );
     power = x.power;
     manufacturer = x.manufacturer;
     intStorage = x.intStorage;
@@ -167,8 +165,7 @@ const Xbox360& Xbox360::operator=(const Xbox360 &x)
 
 bool Xbox360::operator==(const Xbox360 &x) const
 {
-    static_cast <Xbox360>(x);
     if (kinect != x.kinect)
         return false;
-	return true;
+    return true;
 }
