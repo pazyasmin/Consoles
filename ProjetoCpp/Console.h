@@ -1,3 +1,13 @@
+#ifndef CONSOLE_H
+#define CONSOLE_H
+
+#include "Device.h"
+#include "Date.h"
+#include "Game.h"
+#include "Controller.h"
+#include "User.h"
+//#include "Xbox360.h"
+
 #include <string>
 #include <ostream>
 
@@ -36,6 +46,8 @@ class Console : public Device
 	    bool operator==(const Console &) const; 
         
         virtual void start() = 0; 
+        virtual void power_ON();
+        virtual void power_OFF();
     
     protected:
         string platform;                                        //Plataforma do console 
