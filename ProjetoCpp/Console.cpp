@@ -1,7 +1,9 @@
 #include "Console.h"
+
 #include <iostream>
 #include <stdlib.h>
 #include <ctype.h>
+
 using namespace std;
 
 Console::Console()
