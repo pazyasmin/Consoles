@@ -20,7 +20,9 @@ class PlayStation3 : public Console
         bool getKinect() const;
         void psInfo() const;
         
-        virtual void start();
+        virtual void power_ON();
+        virtual void power_OFF();
+    
         
         bool operator==(const PlayStation3 &) const;
         const PlayStation3 &operator=(const PlayStation3 &); 
@@ -29,4 +31,3 @@ class PlayStation3 : public Console
         bool psMove;
 };
 #endif // PLAYSTATION3_H
-

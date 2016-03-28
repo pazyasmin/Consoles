@@ -91,26 +91,54 @@ void PlayStation3::psMove_OFF()
         cout << "\nYour PlayStation Move is already turned off.";
 }
 
-void PlayStation3::start()
-{
-    power_ON();
-
-    cout << "\n\t__________**** PlayStation 3 ****__________";
-    cout <<"\nLoading PlayStation 3. Please wait...";
-    Sleep (10*1000);
-    cout <<"\nScanning components...";
-    Sleep (10*1000);
-    deviceInfo();
-    consoleInfo();
-    psInfo();
-    Sleep (20*1000);
-    system ("cls");
-}
-
 void PlayStation3::psInfo() const
 {
     cout <<"\nPS Move: " << boolalpha << getPsMove();
 }
+
+void PlayStation3::power_ON()
+{
+    if (!power)
+    {
+        power = true;
+        cout << "\n\t__________**** PlayStation 3 ****__________";
+        cout <<"\nLoading PlayStation 3. Please wait...";
+        Sleep (10*1000);
+        cout <<"\nScanning components...";
+        Sleep (10*1000);
+        psInfo();
+        Sleep (10*1000);
+        power = true;
+        cout << "\nYour PlayStation 3 has been turned on."; 
+        system ("cls");
+    }
+    else
+    {
+        cout << "\nYour PlayStation 3 is already turned on.\nRestarting"; 
+        power = false;
+        for (int i=0; i<3; i++)
+        {
+            Sleep (5*1000);
+            cout << ".";
+        }
+        power = true;
+        cout << "\nYour PlayStation 3 has been restarted."; 
+    }
+    
+}
+
+void PlayStation3::power_OFF() 
+{
+    if (power)
+    {
+        power = false;
+        cout << "\nYour PlayStation 3 has been turned off."; 
+    }
+    else
+        cout << "\nYour PlayStation 3 is already turned off."; 
+    
+}
+
 
 ostream &operator<<(ostream &out, const PlayStation3 &x)
 {

@@ -20,7 +20,9 @@ class Xbox360 : public Console
         bool getKinect() const;
         void xboxInfo();
         
-        virtual void start();
+        virtual void power_ON();
+        virtual void power_OFF();
+    
         
         bool operator==(const Xbox360 &) const;
         const Xbox360 &operator=(const Xbox360 &); 

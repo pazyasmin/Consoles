@@ -52,39 +52,6 @@ Console::~Console()
     delete[] users;
 }
 
-void Console::power_ON()
-{
-    if (!power)
-    {
-        power = true;
-        cout << "\nThe device has been turned on."; 
-    }
-    else
-    {
-        cout << "\nThe device is already turned on.\nRestarting"; 
-        power = false;
-        for (int i=0; i<3; i++)
-        {
-            Sleep (5*1000);
-            cout << ".";
-        }
-        power = true;
-        cout << "\nThe device has been restarted."; 
-    }
-    
-}
-
-void power_OFF() 
-{
-    if (power)
-    {
-        power = false;
-        cout << "\nThe device has been turned off."; 
-    }
-    else
-        cout << "\nThe device is already turned off."; 
-    
-}
 
 bool Console::getInternet()
 {   

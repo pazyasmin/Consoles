@@ -45,10 +45,6 @@ class Console : public Device
         const Console &operator=(const Console &);              
 	    bool operator==(const Console &) const; 
         
-        virtual void start() = 0; 
-        virtual void power_ON();
-        virtual void power_OFF();
-    
     protected:
         string platform;                                        //Plataforma do console 
         float softwareVersion;                                  //Versão de software do sistema

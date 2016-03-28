@@ -94,7 +94,6 @@ void Xbox360::kinect_OFF()
 
 void Xbox360::start()
 {
-    power_ON();
     deviceInfo();
     consoleInfo();
     cout << "\n\t__________**** Xbox 360 ****__________";    cout <<"\nLoading Xbox 360. Please wait...";
@@ -110,6 +109,51 @@ void Xbox360::xboxInfo() const
 {
     cout <<"\nKinect: " << boolalpha << getKinect();
 }
+
+void Xbox360::power_ON()
+{
+    if (!power)
+    {
+        deviceInfo();
+        consoleInfo();
+        cout << "\n\t__________**** Xbox 360 ****__________";    
+        cout <<"\nLoading Xbox 360. Please wait...";
+        Sleep (10*1000);
+        cout <<"\nScanning components...";
+        Sleep (10*1000);
+        xboxInfo();
+        Sleep (10*1000);
+        power = true;
+        cout << "\nYour Xbox 360 has been turned on."; 
+        system ("cls");
+    }
+    else
+    {
+        cout << "\nYour Xbox 360 is already turned on.\nRestarting"; 
+        power = false;
+        for (int i=0; i<3; i++)
+        {
+            Sleep (5*1000);
+            cout << ".";
+        }
+        power = true;
+        cout << "\nYour Xbox 360 has been restarted."; 
+    }
+    
+}
+
+void Xbox360::power_OFF() 
+{
+    if (power)
+    {
+        power = false;
+        cout << "\nYour Xbox 360 has been turned off."; 
+    }
+    else
+        cout << "\nYour Xbox 360 is already turned off."; 
+    
+}
+
 
 ostream &operator<<(ostream &out, const Xbox360 &x)
 {
@@ -167,5 +211,5 @@ bool Xbox360::operator==(const Xbox360 &x) const
 {
     if (kinect != x.kinect)
         return false;
-    return true;
+	return true;
 }

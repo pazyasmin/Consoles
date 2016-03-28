@@ -16,8 +16,10 @@ class Device
         void insertStorageDevice(const float &, int);       //Insere dispositivos de armazenamento externo
         void removeStorageDevice(int);                      //Remove dispositivos de armazenamento externo
         void deviceInfo() const;                            //Exibe as informações de dispositivo 
+        
         virtual void power_ON() = 0;                        //Ligar
         virtual void power_OFF() = 0;                       //Desligar
+        
         void deviceInfo();
         const Device &operator=(const Device &);            //Operador de atribuição
         bool operator==(const Device &) const;              //Operador de igualdade
@@ -31,6 +33,7 @@ class Device
         float extStorage[USB_PORTS];                        //Armazenamento externo (HDs externos, flash drives, etc)
 
 };
+
 #endif //DEVICE_H
 
 
