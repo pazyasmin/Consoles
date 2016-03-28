@@ -18,7 +18,6 @@ Console::Console()
 }
 
 Console::Console(const Console &c)
-:Device(static_cast<Device>(c))
 {  
 
     power = c.power;
@@ -51,6 +50,40 @@ Console::~Console()
 {       
     delete[] games;
     delete[] users;
+}
+
+void Console::power_ON()
+{
+    if (!power)
+    {
+        power = true;
+        cout << "\nThe device has been turned on."; 
+    }
+    else
+    {
+        cout << "\nThe device is already turned on.\nRestarting"; 
+        power = false;
+        for (int i=0; i<3; i++)
+        {
+            Sleep (5*1000);
+            cout << ".";
+        }
+        power = true;
+        cout << "\nThe device has been restarted."; 
+    }
+    
+}
+
+void power_OFF() 
+{
+    if (power)
+    {
+        power = false;
+        cout << "\nThe device has been turned off."; 
+    }
+    else
+        cout << "\nThe device is already turned off."; 
+    
 }
 
 bool Console::getInternet()
@@ -356,8 +389,6 @@ void Console::play(string t)
 //
 ostream &operator<<(ostream &out, const Console &cons)
 {
-    out << static_cast <Device>(cons);
-
     out <<"\n\t___* System Info *___";
    
     if (cons.power)
@@ -377,4 +408,70 @@ ostream &operator<<(ostream &out, const Console &cons)
         out <<"\nThe console is turned off.";
         
     return out;
+}
+
+const Console &Console::operator=(const Console &cons)
+{
+    power = cons.power;
+    manufacturer = cons.manufacturer;
+    intStorage = cons.intStorage;
+    for (int i = 0; i < USB_PORTS; i++)
+        extStorage[i] = cons.extStorage[i];
+    
+    platform = cons.platform;
+    softwareVersion = cons.softwareVersion;
+    releaseDate = cons.releaseDate;
+    lastUpdated = cons.lastUpdated;
+    for (int i = 0; i < 3; i++)
+        storage[i] = cons.storage[i];
+    internetConnection = cons.internetConnection;
+    nGames = cons.nGames;
+    nUsers = cons.nUsers;
+    
+    delete [] users;
+    delete [] games;
+    
+    users = new User[nUsers];
+    games = new Game[nGames];
+    
+    for (int i=0; i < nUsers; i++)
+    {
+        users[i] = cons.users[i];
+    }
+    for (int i=0; i < nGames; i++)
+    {
+        games[i] = cons.games[i];
+    }
+    for (int i=0; i < CONTROLLER_SLOTS; i++)
+    {
+        controllers[i] = cons.controllers[i];
+    }
+    
+    return *this;
+}
+
+bool Console::operator==(const Console &cons) const
+{
+   
+    if (power != cons.power)
+        return false;
+    if (manufacturer != cons.manufacturer)
+        return false;
+    if (intStorage != cons.intStorage)
+        return false;
+    if (ethernetCard != cons.ethernetCard)
+        return false;
+
+    if(platform != cons.platform)
+        return false;
+    if(softwareVersion != cons.softwareVersion)
+        return false;
+    if(internetConnection != cons.internetConnection)
+        return false;
+    if(nUsers != cons.nUsers)
+        return false;
+    if(nGames != cons.nGames)
+        return false;
+          
+    return true;
 }
