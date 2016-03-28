@@ -39,33 +39,33 @@ int main(int argc, char **argv)
                         //(...)
                     default:
                         cout << "\n\nError. Enter a valid option. ";
-                 }
+                }
             }while (op != 0); 
                             
-		}
+	}
 
-		if(ptPS)
-		{
-            ptPS->start();
-            do
-            {
-                psMenu();
-                cin >> op;
-        
-                switch (op)
-                {
-                    case 1:
-                        ptPS->power_OFF();
-                        break;
-                    case 2:
-                        ptPS->displayGames();
-                        //(...)
-                    default:
-                        cout << "\n\nError. Enter a valid option. ";
-                 }
-            }while (op != 0); 
-            
-        }
+	if(ptPS)
+	{
+	    	ptPS->start();
+	    	do
+	    	{
+	        psMenu();
+	        cin >> op;
+	
+	        switch (op)
+	        {
+	            case 1:
+	                ptPS->power_OFF();
+	                break;
+	            case 2:
+	                ptPS->displayGames();
+	                //(...)
+	            default:
+	                cout << "\n\nError. Enter a valid option. ";
+	        }
+    		}while (op != 0); 
+
+ 	}
     
     vetorConsoles.clear();
     
