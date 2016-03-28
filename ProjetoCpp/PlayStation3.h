@@ -28,4 +28,5 @@ class PlayStation3 : public Console
     private:    
         bool psMove;
 };
-#endif // XBOX360_H
+#endif // PLAYSTATION3_H
+
