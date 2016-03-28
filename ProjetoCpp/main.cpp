@@ -1,12 +1,7 @@
 #include <iostream>
-#include "Device.h"
-#include "Console.h"
-#include "Xbox360.h"
-#include "PlayStation.h"
-
-#include <iostream>
 
 using namespace std;
+
 void xboxMenu();
 void psMenu();
 
