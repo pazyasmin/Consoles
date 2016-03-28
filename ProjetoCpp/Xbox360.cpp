@@ -92,7 +92,7 @@ void Xbox360::kinect_OFF()
         cout << "\nYour kinect is already turned off.";
 }
 
-void Xbox360::xboxStart()
+void Xbox360::start()
 {
     power_ON();
     deviceInfo();

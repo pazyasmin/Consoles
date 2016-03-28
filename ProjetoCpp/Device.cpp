@@ -121,35 +121,3 @@ ostream &operator<<(ostream &out, const Device &dev)
         out <<"\nThe device is turned off.";
     return out;
 }
-
-const Device& Device::operator=(const Device &dev)
-{
-    power = dev.power;
-    manufacturer = dev.manufacturer;
-    intStorage = dev.intStorage;
-    for (int i = 0; i < USB_PORTS; i++)
-        extStorage[i] = dev.extStorage[i];
-}
-
-bool Device::operator==(const Device &dev) const
-{
-    if(power != dev.power)
-        return false;
-    if(manufacturer != dev.manufacturer)
-        return false;
-    if(intStorage != dev.intStorage)
-        return false;
-    for (int i = 0; i < USB_PORTS; i++)
-    {
-        if(extStorage[i] != dev.extStorage[i])
-            return false;
-    }
-    if (ethernetCard != dev.ethernetCard)
-        return false;
-        
-    return true;
-}
-
-
-
-

@@ -41,9 +41,6 @@ class Console : public Device
         void consoleInfo() const;                           
         void update();                                 
         void play(string); 
-       
-        const Console &operator=(const Console &);              
-	    bool operator==(const Console &) const;                
     
     protected:
         string platform;                                        //Plataforma do console 

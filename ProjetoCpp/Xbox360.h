@@ -18,8 +18,10 @@ class Xbox360 : public Console
         void kinect_ON();
         void kinect_OFF();
         bool getKinect() const;
-        void xboxInfo() const;
-        void xboxStart();
+        void xboxInfo();
+        
+        virtual void start();
+        
         bool operator==(const Xbox360 &) const;
         const Xbox360 &operator=(const Xbox360 &); 
         

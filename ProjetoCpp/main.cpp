@@ -5,27 +5,24 @@
 
 using namespace std;
 void xboxMenu();
+void psMenu();
 void menuConsole();
-void funcXbox360();
-void funcPlayStation3();
+void deviceConsole();
+void consoleXbox360();
+void consolePlayStation3();
 
 int main(int argc, char **argv)
 {
     int op;
 	
-	cout << "\nChoose one of the following: 
-    cout <<"\n1 - Xbox 360 
-    cout <<"\n2 - Play Station 3";
+	cout << "\nChoose one of the following devices:";
+    cout <<"\n1 - Console 
 	cin >> op;
 	
 	switch(op)
 	{
 		case 1:
-			funcXbox360();
-			break;
-			
-		case 2:
-			funcPlayStation3();
+			deviceConsole();
 			break;
 		default:
 			cout << "\nError. Enter a valid option.\n";
@@ -33,12 +30,22 @@ int main(int argc, char **argv)
     return 0;
 }
     
-void funcXbox360()
+void deviceConsole()
 {    
     int op;
-    Xbox360 myXbox;
-    myXbox.xboxStart();
-	
+    cout << "\nChoose one of the following: \n
+    cout <<"\n 1 - Xbox 360 \n 2 - PlayStation 3 ";
+    cin >> opt;
+    vector <Console *> consoles;
+    
+    if (op == 1)
+    consoles.push_back (new Xbox360());
+    else 
+        if (op == 2)
+            consoles.push_back(new PlayStation3());
+
+}
+/*
     do
     {   cout << "___**** MENU XBOX 360 ****___";
         menuConsole();
@@ -53,14 +60,6 @@ void funcXbox360()
             case 2:
                 myXbox.displayGames();
 
-                break;
-                
-            case 3:
-                
-                break;
-                
-            case 4:
-                
             default:
                 cout << "\n\nError. Enter a valid option. ";
          }
@@ -69,7 +68,7 @@ void funcXbox360()
 	return 0;
 }
 
-void funcPlayStation3()
+void consolePlayStation3()
 {
     
 }
@@ -80,6 +79,14 @@ void xboxMenu()
     cout << "\n16. Turn off kinect";
     cout <<"\n>";
 }
+
+void psMenu()
+{
+    cout << "\n15. Turn on PS Move";
+    cout << "\n16. Turn off PS Move";
+    cout <<"\n>";
+}
+
 void menuConsole()
 {
        
@@ -101,3 +108,4 @@ void menuConsole()
         cout << "\n14 - Connect to the Internet";
         cout << "\n15 - Show system info";
 }
+*/

@@ -18,9 +18,10 @@ class Device
         void deviceInfo() const;                            //Exibe as informações de dispositivo 
         void power_ON();                                    //Ligar
         void power_OFF();                                   //Desligar
-        const Device &operator=(const Device &);            //Operador de atribuição
-        bool operator==(const Device &) const;              //Operador de igualdade
+        void deviceInfo();
     
+        virtual void start() = 0; 
+        
     protected:
         const static int USB_PORTS = 2;                     //Máximo disponível de entradas USB
         const static bool ethernetCard = true;                           //Presença ou ausência de placa de rede no dispositivo (nem todo dispositivo possui) 
