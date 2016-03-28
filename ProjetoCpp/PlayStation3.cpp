@@ -95,7 +95,7 @@ void PlayStation3::start()
 {
     power_ON();
 
-    cout <<"\n\t________**** PlayStation 3 ****_________";
+    cout << "\n\t__________**** PlayStation 3 ****__________";
     cout <<"\nLoading PlayStation 3. Please wait...";
     Sleep (10*1000);
     cout <<"\nScanning components...";
@@ -114,7 +114,7 @@ void PlayStation3::psInfo() const
 
 ostream &operator<<(ostream &out, const PlayStation3 &x)
 {
-    out << static_cast <Console> (x);
+   
     if (x.power)
     {
         x.deviceInfo();
@@ -131,7 +131,7 @@ ostream &operator<<(ostream &out, const PlayStation3 &x)
 
 const PlayStation3& PlayStation3::operator=(const PlayStation3 &x)
 {
-    static_cast<PlayStation3> ( *this ) = PlayStation3( static_cast< PlayStation3 > (x) );
+
     power = x.power;
     manufacturer = x.manufacturer;
     intStorage = x.intStorage;
@@ -167,7 +167,6 @@ const PlayStation3& PlayStation3::operator=(const PlayStation3 &x)
 
 bool PlayStation3::operator==(const PlayStation3 &x) const
 {
-    static_cast <PlayStation3>(x);
     if (psMove != x.psMove)
         return false;
 	return true;
