@@ -106,5 +106,7 @@
     <File Name="ProjetoCpp/Game.cpp"/>
     <File Name="ProjetoCpp/User.cpp"/>
     <File Name="ProjetoCpp/Controller.cpp"/>
+    <File Name="ProjetoCpp/PlayStation3.cpp"/>
+    <File Name="ProjetoCpp/PlayStation3.h"/>
   </VirtualDirectory>
 </CodeLite_Project>

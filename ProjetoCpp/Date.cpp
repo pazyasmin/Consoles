@@ -3,17 +3,18 @@
 #include <ctime>
 using  namespace std;
 
-Date::Date(int day, int month, int year)
-:hour(0), min(0)
-{
-	day = validateDay(day); 
-	month = month;
-	year = year;
-}
 Date::Date()
 : day(1), month(1), year(1900), hour (0), min (0)
 {
     
+}
+
+Date::Date(int day, int month, int year)
+:hour(0), min(0)
+{
+	day = day; 
+	month = month;
+	year = year;
 }
 Date::~Date()
 {

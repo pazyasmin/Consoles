@@ -1,6 +1,7 @@
 #include "Device.h"
 #include <iostream>
 #include "windows.h" 
+
 using namespace std;
 
 Device::Device()
@@ -8,6 +9,7 @@ Device::Device()
 {
     for (int i = 0; i < USB_PORTS; i++)
         extStorage[i] = 0;
+    ethernetCard  = false;
 }
 
 Device::Device(const Device &dev) 
@@ -17,6 +19,7 @@ Device::Device(const Device &dev)
     intStorage = dev.intStorage;
     for (int i = 0; i < USB_PORTS; i++)
         extStorage[i] = dev.extStorage[i];
+    ethernetCard = dev.ethernetCard;
 }
 
 Device::~Device() 
@@ -24,69 +27,78 @@ Device::~Device()
        
 }
 
-void Device::insertStorageDevice(const float &a, int b)
+void Device::insertStorageDevice(const float &ext, int p)
 {
-    if (b >= 0 && b < USB_PORTS)
+    if (p < 0 || p >= USB_PORTS)
     {
-        if (extStorage[b] != 0.00)
-            cout << "\nAction denied. The specified port is currently in use.";
-        else
-        {
-            extStorage[b] = a;
-            cout <<"\nThe storage device is ready for use!";
-        }
+     cout << "\nAction denied. The specified port does not exist.";
+        return;
+    }   
+    
+    if (extStorage[p] != 0.00)
+    {
+        cout << "\nAction denied. The specified port is currently in use.";
     }
     else
-        cout << "\nError. The specified port does not exist.";
+    {
+        extStorage[p] = 1.00;
+        cout <<"\nThe storage device is ready for use.";
+    }
 }
 
-void Device::removeStorageDevice(int b)
+void Device::removeStorageDevice(int p)
 {
    
-    if (b >= 0 && b < USB_PORTS)
+    if (p < 0 || p >= USB_PORTS)
     {
-        if (extStorage[b] != 0.00)
-        {
-            extStorage[b] = 0.00;
-            cout <<"\nThe storage device was successfully removed!";
-        }
-        else
-            cout << "\nError. The specified port was already free.";
+        cout << "\nAction denied. The specified port does not exist.";
+        return;
+    }      
+        
+    if (extStorage[p] != 0.00)
+    {
+        extStorage[p] = 0.00;
+        cout <<"\nThe storage device was successfully removed!";
     }
     else
-        cout << "\nError. The specified port does not exist.";
+        cout << "\nAction denied. The specified port is already free.";
 }
 
 void Device::deviceInfo() const
 {
-    cout << "\n\t___* Device Status *___ ";
+    cout << "\n\t-Device Status-";
     if (power)
     {
-        cout <<"\nThe device is turned on.";
-        cout << "\n\t--- Capacity ---";
-        cout <<"\nInternal Storage: "<< intStorage << " GBytes.";
+        cout <<"\nThe device is turned on ";
+        cout << "\n\t-Capacity-";
+        cout <<"\nInternal Storage: "<< intStorage << " GB ";
         cout <<"\nExternal Storage: ";
             for (int i = 0; i < USB_PORTS; i++)
-                cout << "\nPort "<< i << ": "<< extStorage[i] << " GBytes.";
+                cout << "\nPort "<< i << ": "<< extStorage[i] << " GB ";
     }
     else
-        cout <<"\nThe device is turned off.";
+        cout <<"\nThe device is turned off";
 }
 
 ostream &operator<<(ostream &out, const Device &dev)
 {
-        out << "\n\t___* Device Status *___ ";
+    out << "\n\t-Device Status-";
     if (dev.power)
     {
-        out <<"\nThe device is turned on.";
-        out << "\n\t--- Capacity ---";
-        out <<"\nInternal Storage: "<< dev.intStorage << " GBytes.";
+        out <<"\nThe device is turned on ";
+        out << "\n\t-Capacity-";
+        out <<"\nInternal Storage: "<< dev.intStorage << " GB ";
         out <<"\nExternal Storage: ";
         for (int i = 0; i < dev.USB_PORTS; i++)
-            out << "\nPort "<< i << ": "<< dev.extStorage[i] << " GBytes.";
+            out << "\nPort "<< i << ": "<< dev.extStorage[i] << " GB ";
+        
+        if (dev.ethernetCard)
+            cout <<"\nEthernet card: yes ";
+        else
+            cout <<"\nEthernet card: no ";
     }
     else
-        out <<"\nThe device is turned off.";
+        out <<"\nThe device is turned off ";
     return out;
 }
 
@@ -97,6 +109,7 @@ const Device& Device::operator=(const Device &dev)
     intStorage = dev.intStorage;
     for (int i = 0; i < USB_PORTS; i++)
         extStorage[i] = dev.extStorage[i];
+    ethernetCard = dev.ethernetCard;
 }
 
 bool Device::operator==(const Device &dev) const

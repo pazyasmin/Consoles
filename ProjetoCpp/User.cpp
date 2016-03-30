@@ -22,12 +22,12 @@ User::~User()
       
 }
 
-string User::getName() const 
+string User::getName() 
 {
     return name;
 }
 
-string User::getGamertag() const
+string User::getGamertag() 
 {
     return gamertag;
 }

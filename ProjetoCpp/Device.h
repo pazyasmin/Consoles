@@ -9,6 +9,7 @@ using std::string;
 class Device
 {
     friend ostream &operator<<(ostream &, const Device &);  //Operador de saída com streams
+    
     public: 
         Device();
         Device(const Device &);
@@ -17,8 +18,8 @@ class Device
         void removeStorageDevice(int);                      //Remove dispositivos de armazenamento externo
         void deviceInfo() const;                            //Exibe as informações de dispositivo 
         
-        virtual void power_ON() = 0;                        //Ligar
-        virtual void power_OFF() = 0;                       //Desligar
+        virtual bool power_ON() = 0;                        //Ligar
+        virtual bool power_OFF() = 0;                       //Desligar
         
         void deviceInfo();
         const Device &operator=(const Device &);            //Operador de atribuição
@@ -26,14 +27,13 @@ class Device
         
     protected:
         const static int USB_PORTS = 2;                     //Máximo disponível de entradas USB
-        const static bool ethernetCard = true;                           //Presença ou ausência de placa de rede no dispositivo (nem todo dispositivo possui) 
+        bool ethernetCard;                                       //Presença ou ausência de placa de rede no dispositivo (nem todo dispositivo possui) 
         bool power;                                         //Botão ligar
         string manufacturer;                                //Fabricante
         float intStorage;                                   //Armazenamento interno (é diferente dependendo do console)
         float extStorage[USB_PORTS];                        //Armazenamento externo (HDs externos, flash drives, etc)
 
 };
-
 #endif //DEVICE_H
 
 

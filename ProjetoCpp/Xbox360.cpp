@@ -11,7 +11,8 @@ Xbox360::Xbox360()
     intStorage = 250.00;
     for (int i = 0; i < USB_PORTS; i++)
         extStorage[i] = 0.00; 
- 
+    ethernetCard = true;
+    
     platform = "Xbox 360";
     softwareVersion = 1.0;
     releaseDate = Date(22,11,2005);
@@ -31,14 +32,14 @@ Xbox360::Xbox360()
     kinect = false;
 }
 
-Xbox360::Xbox360(const Xbox360 &x)
-: Console(static_cast<Console> (x))
+Xbox360::Xbox360(const Xbox360 &x)//: Console(static_cast<Console> (x))
 {
     power = x.power;
     manufacturer = x.manufacturer;
     intStorage = x.intStorage;
     for (int i = 0; i < USB_PORTS; i++)
         extStorage[i] = x.extStorage[i];
+    ethernetCard = x.ethernetCard;
 
     platform = x.platform;
     softwareVersion = x.softwareVersion;
@@ -65,7 +66,7 @@ Xbox360::~Xbox360()
     
 }
 
-void Xbox360::getKinect() const
+bool Xbox360::getKinect() const
 {
     return kinect;
 }
@@ -92,78 +93,57 @@ void Xbox360::kinect_OFF()
         cout << "\nYour kinect is already turned off.";
 }
 
-void Xbox360::start()
-{
-    deviceInfo();
-    consoleInfo();
-    cout << "\n\t__________**** Xbox 360 ****__________";    cout <<"\nLoading Xbox 360. Please wait...";
-    Sleep (10*1000);
-    cout <<"\nScanning components...";
-    Sleep (10*1000);
-    xboxInfo();
-    Sleep (20*1000);
-    system ("cls");
-}
-
 void Xbox360::xboxInfo() const
 {
+    consoleInfo();
     cout <<"\nKinect: " << boolalpha << getKinect();
 }
 
-void Xbox360::power_ON()
+bool Xbox360::power_ON()
 {
     if (!power)
     {
-        deviceInfo();
-        consoleInfo();
-        cout << "\n\t__________**** Xbox 360 ****__________";    
+        cout << "\n\t-Xbox 360-";    
         cout <<"\nLoading Xbox 360. Please wait...";
-        Sleep (10*1000);
+        Sleep (3*1000);
         cout <<"\nScanning components...";
-        Sleep (10*1000);
+        Sleep (3*1000);
         xboxInfo();
-        Sleep (10*1000);
+        Sleep (3*1000);
         power = true;
         cout << "\nYour Xbox 360 has been turned on."; 
-        system ("cls");
     }
     else
     {
-        cout << "\nYour Xbox 360 is already turned on.\nRestarting"; 
+        cout << "\nYour Xbox 360 is already turned on.\nRestarting..."; 
         power = false;
-        for (int i=0; i<3; i++)
-        {
-            Sleep (5*1000);
-            cout << ".";
-        }
-        power = true;
-        cout << "\nYour Xbox 360 has been restarted."; 
+        power_ON();
+        cout << "Your Xbox 360 has been restarted!\n"; 
     }
-    
+    return true;
 }
 
-void Xbox360::power_OFF() 
+bool Xbox360::power_OFF() 
 {
     if (power)
     {
         power = false;
+        cout << "\nShutting down Xbox 360. Please wait...";
+        Sleep (3*1000);
         cout << "\nYour Xbox 360 has been turned off."; 
     }
     else
         cout << "\nYour Xbox 360 is already turned off."; 
-    
+    return true;
 }
 
 
 ostream &operator<<(ostream &out, const Xbox360 &x)
 {
-    out << static_cast <Console> (x);
+    //out << static_cast <Console> (x);
     if (x.power)
     {
-        x.deviceInfo();
         x.consoleInfo();
-        x.displayUsers();
-        x.displayGames();
         if (x.kinect)
             out <<"\nKinect: ON";
         else
@@ -179,6 +159,7 @@ const Xbox360& Xbox360::operator=(const Xbox360 &x)
     intStorage = x.intStorage;
     for (int i = 0; i < USB_PORTS; i++)
         extStorage[i] = x.extStorage[i];
+    ethernetCard = x.ethernetCard;
 
     platform = x.platform;
     softwareVersion = x.softwareVersion;
@@ -204,7 +185,6 @@ const Xbox360& Xbox360::operator=(const Xbox360 &x)
         games[i] = x.games[i];
 
     kinect = x.kinect;
-    return x;
 }
 
 bool Xbox360::operator==(const Xbox360 &x) const

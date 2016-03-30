@@ -6,8 +6,7 @@
 
 using namespace std;
 
-Console::Console()
-: platform("Unknown"), softwareVersion(1.0), releaseDate(1,1,1999), lastUpdated(1,1,1999), internetConnection(false),nGames(0), nUsers(0)
+Console::Console(): platform("Unknown"), softwareVersion(1.0), releaseDate(1,1,1990), lastUpdated(1,1,1990), internetConnection(false)
 {
     for (int i=0 ; i < CONTROLLER_SLOTS; i++)
     {
@@ -15,6 +14,12 @@ Console::Console()
         controllers[i].setWireless(false);
     }
 
+    storage[0] = 500.00;
+    storage[1] = 0.00;
+    storage[2] = 500.00;
+    
+    nGames = 0;
+    nUsers = 0;
 }
 
 Console::Console(const Console &c)
@@ -25,7 +30,8 @@ Console::Console(const Console &c)
     intStorage = c.intStorage;
     for (int i = 0; i < USB_PORTS; i++)
         extStorage[i] = c.extStorage[i];
-        
+    ethernetCard = c.ethernetCard;
+    
     platform = c.platform;
     softwareVersion = c.softwareVersion;
     releaseDate = c.releaseDate;
@@ -43,7 +49,6 @@ Console::Console(const Console &c)
         games[i] = c.games[i];
     for (int i = 0; i < nUsers; i++)
         users[i] = c.users[i];
-        
 }
 
 Console::~Console()
@@ -51,7 +56,7 @@ Console::~Console()
     delete[] games;
     delete[] users;
 }
-
+/*
 
 bool Console::getInternet()
 {   
@@ -62,13 +67,13 @@ bool Console::getInternet()
     return true;
 }
 
-void Console::setInternet(bool)
+void Console::setInternet(bool internet)
 {
     if (ethernetCard)
         if (!internetConnection)
-            internetConnection = true;
+            internetConnection = internet;
 }
-
+*/
 void Console::refreshTotalSpace()
 {
     storage[0] = intStorage;
@@ -76,10 +81,9 @@ void Console::refreshTotalSpace()
         storage[0] += extStorage[i];
 }
 
-void Console::refreshUsedSpace(float a)
+void Console::refreshUsedSpace(float sz)
 {
-    
-    storage[1] = storage[1] + a;
+    storage[1] = storage[1] + sz;
 }
 
 void Console::refreshFreeSpace()
@@ -134,22 +138,22 @@ void Console::installGame(const Game& game)
                 }
                 else
                 {
-                    storage[1] = 0.00;
+                    storage[1] = game.getSize();
                     games = new Game[++nGames];
                     games[0] = game;
                 }
                 float sz = game.getSize();
-                cout <<"\n"<< game.getTitle() <<" was successfully installed on your system!";
+                cout <<"\nThe game '"<< game.getTitle() <<"' was successfully installed on your system!";
                 refreshUsedSpace(sz);
             }
             else
-                cout <<"\nThe game could not be installed. Not enough storage space. ";
+                cout <<"\nThe game '"<< game.getTitle() << "' could not be installed. Not enough storage space. ";
         }
         else
-            cout <<"\nThe game could not be installed. It is not compatible with your system. ";
+            cout <<"\nThe game '"<< game.getTitle() << "' could not be installed. It is not compatible with your system. ";
     }
     else
-        cout << "\nThe game could not be installed. The device is turned off. ";
+        cout << "\nThe game '"<< game.getTitle() << "' could not be installed. The device is turned off. ";
         
 }
 
@@ -161,7 +165,7 @@ void Console::uninstallGame()
     int a = findGame(nm, nGames);
     
     if (a == -1)
-	cout <<"\nGame " << nm  << " not found.";
+	cout <<"\nThe game '" << nm  << "' was not found.";
    else
    {
     for (int i = a + 1; i < nGames; i++)
@@ -171,7 +175,7 @@ void Console::uninstallGame()
     float sz = games[a].getSize();
     sz *= -1;
     refreshUsedSpace(sz);
-	cout << "\nGame "<< nm << " uninstalled successfully!";
+	cout << "\nThe game '"<< nm << "' was uninstalled successfully!";
    }
 }
 
@@ -216,14 +220,14 @@ void Console::deleteUser()
     int a = findUser(nm, nUsers);
     
     if (a == -1)
-	cout <<"\nUser " << nm  << " not found.";
+	cout <<"\nUser '" << nm  << "'could not be found.";
    else
    {
 	for (int i = a + 1; i < nUsers; i++)
 		users[i - 1] = users[i];
 			
 	nUsers--;
-	cout << "\nUser "<< nm << " deleted successfully!";
+	cout << "\nUser '"<< nm << "' was deleted successfully!";
    }
 }
 
@@ -233,9 +237,8 @@ void Console::insertController(const Controller &controller, unsigned short int 
     if ( slot >= 0 && slot < CONTROLLER_SLOTS )
         if (!(controllers[slot].getConnected()))
         {
-            controllers[slot] = controller;
-            
-            cout <<"\nController " << slot << " connected!";
+            controllers[slot] = controller;            
+            cout <<"\nController " << slot << " connected.";
         }
         else
             cout <<"\nError. The specified port is in use.";
@@ -258,10 +261,11 @@ void Console::displayGames() const
 {
     if ( nGames > 0)
     {
-        cout << "\n\t___* Installed Games *___";
+        cout << "\n\t-Installed Games-";
         for(int i = 0; i < nGames; i++)
         {
             games[i].gameInfo();
+            cout <<"---";
         }
     }
      else
@@ -272,11 +276,12 @@ void Console::displayUsers() const
 {
     if ( nUsers > 0)
     {
-        cout << "\n\t___* Users *___";
+        cout << "\n\t-Users-";
         for(int i = 0; i < nUsers; i++)
         {
             cout <<"\nName: " << users[i].getName();
             cout <<"\nGamertag: " << users[i].getName();
+            cout <<"---";
         }
     }
      else
@@ -287,33 +292,34 @@ void Console::update()
 {
     char op;
     float latest = 0.15;
-    if (internetConnection)
+/*    if (!internetConnection)
     {
-        if ((rand()%2) == 1)
-        {
-            cout <<"\nThere are new updates available. Update system software? (Y/N)";
-            cin >> op;
-                if (toupper(op) == 'Y')
-                {
-                    softwareVersion += latest;
-                    lastUpdated.timeNow();
-                }
-                else 
-                    return;
-        }
-        else
-            cout <<"\nThere are no updates available.";
+        cout <<"\nInternet connection failed.";
+        return;
+    }
+ */   
+    if ((rand()%2) == 1)    
+    {
+        cout <<"\nThere are new updates available. Update system software? (Y/N)";
+        cin >> op;
+            if (toupper(op) == 'Y')
+            {
+                softwareVersion += latest;
+                lastUpdated.timeNow();
+            }
     }
     else
-        cout <<"\nInternet connection failed.";
+        cout <<"\nThere are no updates available.";      
 }
 
 void Console::consoleInfo() const
 {
-    cout <<"\n\t___* System Info *___";
-   
+    deviceInfo();
+    cout <<"\n\t-System Info-";
+    
     if (power)
     {
+        
         cout <<"\nPlatform: "<< platform;
         cout <<"\nSoftware version: " << softwareVersion;
         cout <<"\nRelease Date:  "<< releaseDate;
@@ -330,33 +336,35 @@ void Console::consoleInfo() const
 }
 
 
-void Console::play(string t) 
+void Console::play() 
 {
+    string t;
     char op;
+
+    cout << "\nType in the game you would like to play: ";
+    cin >> t;
+    
     int a = findGame(t, nGames);
-            if (a == -1)
-                cout << "\nThe game " << t << " is not installed on your system.";  
-            else
+        if (a == -1)
+            cout << "\nThe game " << t << " is not installed on your system.";  
+        else
+        {
+            cout << "\nPlay " << games[a].getTitle() << "(Y/N)?";
+            cin  >> op;
+            
+            if (toupper(op) == 'Y')
             {
-                cout << "\nPlay " << games[a].getTitle() << "(Y/N)?";
-                cin  >> op;
-                
-                if (toupper(op) == 'Y')
-                {
-                    cout <<"\nLoading game. Please wait...";
-                    cout << "\nYou're playing "<< games[a].getTitle() << "!\n";
-                }
-                else 
-                    cout <<"\nExiting...";
+                cout <<"\nLoading game. Please wait...";
+                cout << "\nYou're playing "<< games[a].getTitle() << "!\n";
             }
-    }
-    else
-        cout <<"\nThe game is not compatible with your system.";
+            else 
+                cout <<"\nExiting...";
+        }
 }
 //
 ostream &operator<<(ostream &out, const Console &cons)
 {
-    out <<"\n\t___* System Info *___";
+    out <<"\n\t-System Info-";
    
     if (cons.power)
     {
@@ -379,11 +387,13 @@ ostream &operator<<(ostream &out, const Console &cons)
 
 const Console &Console::operator=(const Console &cons)
 {
+//    operator =();
     power = cons.power;
     manufacturer = cons.manufacturer;
     intStorage = cons.intStorage;
     for (int i = 0; i < USB_PORTS; i++)
         extStorage[i] = cons.extStorage[i];
+    ethernetCard = cons.ethernetCard;
     
     platform = cons.platform;
     softwareVersion = cons.softwareVersion;

@@ -1,5 +1,5 @@
 #ifndef PLAYSTATION3_H
-#define PLAYSTATION3_H_H
+#define PLAYSTATION3_H
 
 #include <string>
 #include <ostream>
@@ -15,15 +15,14 @@ class PlayStation3 : public Console
         PlayStation3();
         PlayStation3(const PlayStation3 &);
         ~PlayStation3();
-        void kinect_ON();
-        void kinect_OFF();
-        bool getKinect() const;
+        void psMove_ON();
+        void psMove_OFF();
+        bool getMove() const;
         void psInfo() const;
         
-        virtual void power_ON();
-        virtual void power_OFF();
+        virtual bool power_ON();
+        virtual bool power_OFF();
     
-        
         bool operator==(const PlayStation3 &) const;
         const PlayStation3 &operator=(const PlayStation3 &); 
         

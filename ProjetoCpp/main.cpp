@@ -1,81 +1,77 @@
 #include <iostream>
+#include <vector>
+#include "Console.h"
+#include "Xbox360.h"
+#include "PlayStation3.h"
 
 using namespace std;
 
 void xboxMenu();
 void psMenu();
+int xbList();
+int psList();
 
 int main(int argc, char **argv)
 {
     const int n = 2;
-	
-	vector<Console *> vetorConsoles(n);
-	
-	vetorConsoles[0] = new Xbox360();
-	vetorConsoles[1] = new PlayStation3();
-
+    vector<Console *> vConsoles(n);
     
+    vConsoles[0] = new Xbox360();
+    bool xbox = vConsoles[0] -> power_ON();
+    cout << "\n\nYour Xbox 360 is ready!" << endl;
+    
+    vConsoles[1] = new PlayStation3();
+    bool playstation = vConsoles[1] -> power_ON();
+    cout << "\n\nYour PlayStation 3 is ready!";
+   
     for(int i = 0; i < n; i++)
 	{
-        Xbox360 *ptXB = dynamic_cast < Xbox360 * > (vetorConsoles[i]);
-		PlayStation3 *ptPS = dynamic_cast < PlayStation3 * > (vetorConsoles[i]);
-
-        if(ptXB)
+        int op;
+        int op2;
+        do
         {
-            ptXB->start();
-            
-            do
-            {   
-                xboxMenu();
-                cin >> op;
+        cout << "\nChoose one of the following: ";
+        cout << "\n1 - Xbox 360 \n2 - PlayStation 3 ";
+        cout << "\n> ";
+        cin >> op;
+        }while (op != 1 && op != 2);
         
-                switch (op)
-                {
-                    case 1:
-                        ptXB->power_OFF();
-                        break;
-                    case 2:
-                        ptXB->displayGames();
-                        //(...)
-                    default:
-                        cout << "\n\nError. Enter a valid option. ";
-                 }
-            }while (op != 0); 
-                            
-		}
-
-		if(ptPS)
-		{
-            ptPS->start();
-            do
+        Xbox360 *xb = dynamic_cast < Xbox360 * > (vConsoles[i]);
+		PlayStation3 *ps = dynamic_cast < PlayStation3 * > (vConsoles[i]);
+        
+            if(xb && xbox && op == 1)
             {
-                psMenu();
-                cin >> op;
-        
-                switch (op)
-                {
-                    case 1:
-                        ptPS->power_OFF();
-                        break;
-                    case 2:
-                        ptPS->displayGames();
-                        //(...)
-                    default:
-                        cout << "\n\nError. Enter a valid option. ";
-                 }
-            }while (op != 0); 
-            
-        }
-    
-    vetorConsoles.clear();
-    
-	return 0;
+                do
+                {   Game jogo;
+                    xboxMenu();
+                    cin >> op1;
+                    
+                    switch (op1)
+                    {
+                        case 1:
+                            xb->power_OFF();
+                        case 2:
+                            xb->play();
+                            break;
+                        case 3:
+                            int op = xbList();
+                            if (op == 1) Game jogo("Halo", "Xbox 360", 45.00);
+                            if (op == 2) Game jogo("Halo 5", "Xbox 360", 60.90);
+                            if (op == 3) Game jogo("Gears of War", "Xbox 360", 50.14);
+                            if (op == 4) Game jogo("Dead Rising 3", "Xbox 360", 51.30);
+                            xb->installGame(jogo);
+                            break;
+                        default:
+                            cout << "\n\nError. Enter a valid option. ";
+                    }
+                }while (op1 != 0); 
+            }
+    }
 }
-
 void xboxMenu()
 {
-    cout << "\n\t__________**** Xbox 360 ****__________";
-    cout << "\n\tMenu";
+    cout << "\n\t-Xbox 360-\n";
+    cout << "\nMenu";
     cout << "\nChoose one of the following:\n";
     cout << "\n0 - Exit";
     cout << "\n1 - Turn off console";
@@ -95,13 +91,13 @@ void xboxMenu()
     cout << "\n15 - Show system info";
     cout << "\n15. Turn on kinect";
     cout << "\n16. Turn off kinect";
-    cout <<"\n>";
+    cout <<"\n > ";
 }
 
 void psMenu()
 {
-    cout << "\n\t__________**** PlayStation 3 ****__________";
-    cout << "\n\tMenu";
+    cout << "\n\t-PlayStation 3-\n";
+    cout << "\nMenu";
     cout << "\nChoose one of the following:\n";
     cout << "\n0 - Exit";
     cout << "\n1 - Turn off console";
@@ -121,5 +117,54 @@ void psMenu()
     cout << "\n15 - Show system info";
     cout << "\n15. Turn on PS Move";
     cout << "\n16. Turn off PS Move";
-    cout <<"\n>";
+    cout <<"\n > ";
 }
+
+int xbList()
+{
+    int op;
+    do
+    {
+    cout << "\nWhich game would you like to install? ";
+    cout << "\n1 - Halo"; 
+    cout << "\n2 - Halo 5";
+    cout << "\n3 - Gears of War";
+    cout <<"\n4 - Dead Rising 3";
+    cin >> op;
+    }while (op < 1 || op > 4);
+    
+    return op;
+}
+
+int psList()
+{
+    int op;
+    do
+    {
+    cout << "\nWhich game would you like to install? ";
+    cout << "\n1 - Bayonetta"; 
+    cout << "\n2 - Metal Gear Solid 4";
+    cout << "\n3 - Heavy Rain";
+    cout <<"\n4 - God of War 3";
+    cin >> op;
+    }while (op > 0 || op <= 4);
+    
+    return op;
+}
+
+
+
+
+/*    if (op == 1) 
+    {   
+        ("Bayonetta", "PlayStation 3", 120.31);
+
+    }
+    if (op == 2) 
+    }
+        return ("Metal Gear Solid 4", "PlayStation 3", 90.87);
+    if (op == 3) 
+        return ("Heavy Rain", "PlayStation 3", 70.33);
+    if (op == 4) 
+        return ("God of War", "PlayStation 3", 40.78);
+}*/

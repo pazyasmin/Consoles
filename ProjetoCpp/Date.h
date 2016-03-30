@@ -16,8 +16,8 @@ class Date
         void timeNow();
         void displayDate();
     private:
-        int month;
         int day;
+        int month;
         int year;
         int hour;
         int min;

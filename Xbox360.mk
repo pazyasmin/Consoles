@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=YasminPaz
-Date                   :=28/03/2016
+Date                   :=30/03/2016
 CodeLitePath           :="C:/Program Files (x86)/CodeLite"
 LinkerName             :=C:/MinGW-4.6.1/bin/g++.exe
 SharedObjectLinkerName :=C:/MinGW-4.6.1/bin/g++.exe -shared -fPIC
@@ -62,7 +62,7 @@ AS       := C:/MinGW-4.6.1/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/ProjetoCpp_Console.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Date.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Device.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_main.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Xbox360.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Game.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_User.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Controller.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/ProjetoCpp_Console.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Date.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Device.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_main.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Xbox360.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Game.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_User.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_Controller.cpp$(ObjectSuffix) $(IntermediateDirectory)/ProjetoCpp_PlayStation3.cpp$(ObjectSuffix) 
 
 
 
@@ -156,6 +156,14 @@ $(IntermediateDirectory)/ProjetoCpp_Controller.cpp$(DependSuffix): ProjetoCpp/Co
 
 $(IntermediateDirectory)/ProjetoCpp_Controller.cpp$(PreprocessSuffix): ProjetoCpp/Controller.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ProjetoCpp_Controller.cpp$(PreprocessSuffix) "ProjetoCpp/Controller.cpp"
+
+$(IntermediateDirectory)/ProjetoCpp_PlayStation3.cpp$(ObjectSuffix): ProjetoCpp/PlayStation3.cpp $(IntermediateDirectory)/ProjetoCpp_PlayStation3.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/YasminPaz/Documents/PROG2/Xbox360/ProjetoCpp/PlayStation3.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ProjetoCpp_PlayStation3.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/ProjetoCpp_PlayStation3.cpp$(DependSuffix): ProjetoCpp/PlayStation3.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ProjetoCpp_PlayStation3.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/ProjetoCpp_PlayStation3.cpp$(DependSuffix) -MM "ProjetoCpp/PlayStation3.cpp"
+
+$(IntermediateDirectory)/ProjetoCpp_PlayStation3.cpp$(PreprocessSuffix): ProjetoCpp/PlayStation3.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ProjetoCpp_PlayStation3.cpp$(PreprocessSuffix) "ProjetoCpp/PlayStation3.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

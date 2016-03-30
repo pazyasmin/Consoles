@@ -18,8 +18,6 @@ class User
         string getGamertag();
         void setName(string);
         void setGamertag(string);
-        string getName() const;
-        string getGamertag() const;
         void userInfo() const;
     
         const User &operator=(const User &); 

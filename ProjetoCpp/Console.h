@@ -3,10 +3,9 @@
 
 #include "Device.h"
 #include "Date.h"
+#include "User.h"
 #include "Game.h"
 #include "Controller.h"
-#include "User.h"
-//#include "Xbox360.h"
 
 #include <string>
 #include <ostream>
@@ -23,24 +22,26 @@ class Console : public Device
         Console(const Console &);
         Console (const int &, const int &, const int &);
         ~Console();
-        bool getInternet();
-        void setInternet (bool);
+//        bool getInternet();
+//        void setInternet (bool);
         void insertController(const Controller &, unsigned short int);
         void removeController(unsigned short int);
         void installGame(const Game &);                    
         void uninstallGame();                   
         void createUser(const User &);                      
         void deleteUser();
+        void displayGames() const;                          
+        void displayUsers() const; 
+        
         void refreshUsedSpace(float); 
         void refreshFreeSpace(); 
         void refreshTotalSpace();
+        
         int findGame(string, int);
         int findUser(string, int);
-        void displayGames() const;                          
-        void displayUsers() const; 
         void consoleInfo() const;                           
         void update();                                 
-        void play(string); 
+        void play(); 
         
         const Console &operator=(const Console &);              
 	    bool operator==(const Console &) const; 
@@ -50,7 +51,7 @@ class Console : public Device
         float softwareVersion;                                  //Versão de software do sistema
         Date releaseDate;                                       //Data de lançamento
         Date lastUpdated;                                       //Data da última atualização
-        float storage[3];                                       //storage[0] = espaço total| storage[1] = espaço usado | storage[2] = espaço livre
+        float storage[3];                                       //storage[0] = espaço total | storage[1] = espaço usado | storage[2] = espaço livre
         bool internetConnection;                                //Conexão à internet
         Game* games;                                            //Lista de jogos instalados
         User* users;                                            //Lista de usuários

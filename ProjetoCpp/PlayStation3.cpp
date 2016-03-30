@@ -10,11 +10,13 @@ PlayStation3::PlayStation3()
     manufacturer = "Sony";
     intStorage = 500.00;
     for (int i = 0; i < USB_PORTS; i++)
-        extStorage[i] = 0.00; 
+        extStorage[i] = 0.00;
+    ethernetCard = true;
+
     platform = "PlayStation 3";
     softwareVersion = 1.0;
     releaseDate = Date(11,11,2006);
-    lastUpdated = Date(12,11,2006);
+    lastUpdated = Date(11,11,2006);
     storage[0] = 500.00;
     storage[1] = 0.00;
     storage[2] = 500.00;
@@ -30,33 +32,32 @@ PlayStation3::PlayStation3()
     psMove = false;
 }
 
-PlayStation3::PlayStation3(const PlayStation3 &x)
-: Console(static_cast<Console> (x))
+PlayStation3::PlayStation3(const PlayStation3 &p)//: Console(static_cast<Console> (p))
 {
-    power = x.power;
-    manufacturer = x.manufacturer;
-    intStorage = x.intStorage;
+    power = p.power;
+    manufacturer = p.manufacturer;
+    intStorage = p.intStorage;
     for (int i = 0; i < USB_PORTS; i++)
-        extStorage[i] = x.extStorage[i];
+        extStorage[i] = p.extStorage[i];
 
-    platform = x.platform;
-    softwareVersion = x.softwareVersion;
-    lastUpdated = x.lastUpdated;
-    storage[0] = x.storage[0];
-    storage[1] = x.storage[1];
-    storage[2] = x.storage[2];
-    internetConnection = x.internetConnection;
-    nGames = x.nGames ; nUsers = x.nGames;
+    platform = p.platform;
+    softwareVersion = p.softwareVersion;
+    lastUpdated = p.lastUpdated;
+    storage[0] = p.storage[0];
+    storage[1] = p.storage[1];
+    storage[2] = p.storage[2];
+    internetConnection = p.internetConnection;
+    nGames = p.nGames ; nUsers = p.nGames;
     
     for (int i = 0; i < nGames; i++)
-        games[i] = x.games[i];
+        games[i] = p.games[i];
     for (int i = 0; i < nUsers; i++)
-        users[i] = x.users[i];
+        users[i] = p.users[i];
     
-    nGames = x.nGames;
-    nUsers = x.nUsers;
+    nGames = p.nGames;
+    nUsers = p.nUsers;
 
-    psMove = x.psMove;
+    psMove = p.psMove;
 }
 
 PlayStation3::~PlayStation3()
@@ -64,7 +65,7 @@ PlayStation3::~PlayStation3()
     
 }
 
-void PlayStation3::getKinect() const
+bool PlayStation3::getMove() const
 {
     return psMove;
 }
@@ -93,63 +94,58 @@ void PlayStation3::psMove_OFF()
 
 void PlayStation3::psInfo() const
 {
-    cout <<"\nPS Move: " << boolalpha << getPsMove();
+    consoleInfo();
+    cout <<"\nPS Move: " << boolalpha << getMove();
 }
 
-void PlayStation3::power_ON()
+bool PlayStation3::power_ON()
 {
     if (!power)
     {
-        power = true;
-        cout << "\n\t__________**** PlayStation 3 ****__________";
+        cout << "\n\t-PlayStation 3-";    
         cout <<"\nLoading PlayStation 3. Please wait...";
-        Sleep (10*1000);
+        Sleep (3*1000);
         cout <<"\nScanning components...";
-        Sleep (10*1000);
+        Sleep (3*1000);
         psInfo();
-        Sleep (10*1000);
+        Sleep (3*1000);
         power = true;
         cout << "\nYour PlayStation 3 has been turned on."; 
-        system ("cls");
     }
     else
     {
-        cout << "\nYour PlayStation 3 is already turned on.\nRestarting"; 
+        cout << "\nYour PlayStation 3 is already turned on.\nRestarting..."; 
         power = false;
-        for (int i=0; i<3; i++)
-        {
-            Sleep (5*1000);
-            cout << ".";
-        }
-        power = true;
+        power_ON();
         cout << "\nYour PlayStation 3 has been restarted."; 
     }
-    
+    return true;
 }
 
-void PlayStation3::power_OFF() 
+bool PlayStation3::power_OFF() 
 {
     if (power)
     {
         power = false;
+        cout << "\nShutting down Xbox 360. Please wait...";
+        Sleep (3*1000);
         cout << "\nYour PlayStation 3 has been turned off."; 
     }
     else
         cout << "\nYour PlayStation 3 is already turned off."; 
-    
+    return true;
 }
 
 
-ostream &operator<<(ostream &out, const PlayStation3 &x)
+ostream &operator<<(ostream &out, const PlayStation3 &p)
 {
    
-    if (x.power)
+    if (p.power)
     {
-        x.deviceInfo();
-        x.consoleInfo();
-        x.displayUsers();
-        x.displayGames();
-        if (x.psMove)
+        p.consoleInfo();
+        p.displayUsers();
+        p.displayGames();
+        if (p.psMove)
             out <<"\nPS Move: ON";
         else
             out <<"\nPS Move: OFF";
@@ -157,25 +153,26 @@ ostream &operator<<(ostream &out, const PlayStation3 &x)
     return out;
 }
 
-const PlayStation3& PlayStation3::operator=(const PlayStation3 &x)
+const PlayStation3& PlayStation3::operator=(const PlayStation3 &p)
 {
 
-    power = x.power;
-    manufacturer = x.manufacturer;
-    intStorage = x.intStorage;
+    power = p.power;
+    manufacturer = p.manufacturer;
+    intStorage = p.intStorage;
     for (int i = 0; i < USB_PORTS; i++)
-        extStorage[i] = x.extStorage[i];
+        extStorage[i] = p.extStorage[i];
+    ethernetCard = p.ethernetCard;
 
-    platform = x.platform;
-    softwareVersion = x.softwareVersion;
-    releaseDate = x.releaseDate;
-    lastUpdated = x.lastUpdated;
-    internetConnection = x.internetConnection;
-    nGames = x.nGames ; 
-    nUsers = x.nGames;
+    platform = p.platform;
+    softwareVersion = p.softwareVersion;
+    releaseDate = p.releaseDate;
+    lastUpdated = p.lastUpdated;
+    internetConnection = p.internetConnection;
+    nGames = p.nGames ; 
+    nUsers = p.nGames;
     
     for (int i=0; i<3 ; i++)
-        storage[i] = x.storage[i];
+        storage[i] = p.storage[i];
         
     delete [] users;
     delete [] games;
@@ -184,18 +181,17 @@ const PlayStation3& PlayStation3::operator=(const PlayStation3 &x)
     games = new Game[nGames];
     
     for (int i=0; i < nUsers; i++)
-        users[i] = x.users[i];
+        users[i] = p.users[i];
 
     for (int i=0; i < nGames; i++)
-        games[i] = x.games[i];
+        games[i] = p.games[i];
 
-    psMove = x.psMove;
-    return x;
+    psMove = p.psMove;
 }
 
-bool PlayStation3::operator==(const PlayStation3 &x) const
+bool PlayStation3::operator==(const PlayStation3 &p) const
 {
-    if (psMove != x.psMove)
+    if (psMove != p.psMove)
         return false;
 	return true;
 }
