@@ -1,6 +1,8 @@
 #include "Xbox360.h"
 #include <iostream>
 #include <windows.h>
+#include <stdlib.h>
+#include <ctype.h>
 
 using  namespace std;
 
@@ -29,7 +31,8 @@ Xbox360::Xbox360()
         controllers[i].setWireless(false);
     }
     
-    kinect = false;
+    kinect.setKinectConnected(false);
+    kinect.setKinectPos(0,0,0);
 }
 
 Xbox360::Xbox360(const Xbox360 &x)//: Console(static_cast<Console> (x))
@@ -57,7 +60,7 @@ Xbox360::Xbox360(const Xbox360 &x)//: Console(static_cast<Console> (x))
     
     nGames = x.nGames;
     nUsers = x.nUsers;
-
+    
     kinect = x.kinect;
 }
 
@@ -66,37 +69,30 @@ Xbox360::~Xbox360()
     
 }
 
-bool Xbox360::getKinect() const
+void Xbox360::connectsKinect()
 {
-    return kinect;
-}
-
-void Xbox360::kinect_ON()
-{
-     if(!kinect)
+     if(!kinect.getKinectConnected())
     {
-        kinect = true;
-        cout << "\nYour kinect has been turned on.";
+        cout << "\nFetching position...\nMapping coordinates...\n";
+        kinect.setKinectConnected(true);
+        cout << "\nYour kinect has been connected.";
     }
     else
-        cout << "\nYour kinect is already turned on.";
+        cout << "\nYour kinect is already connected.";
+
+    kinect.kinectInfo();
 }
 
-void Xbox360::kinect_OFF()
+void Xbox360::disconnectsKinect()
 {
-     if(kinect)
+     if(kinect.getKinectConnected())
     {
-        kinect = false;
-        cout << "\nYour kinect has been turned off.";
+        kinect.setKinectConnected(false);
+        kinect.setKinectPos(0,0,0);
+        cout << "\nYour kinect has been disconnected.";
     }
     else
-        cout << "\nYour kinect is already turned off.";
-}
-
-void Xbox360::xboxInfo() const
-{
-    consoleInfo();
-    cout <<"\nKinect: " << boolalpha << getKinect();
+        cout << "\nYour kinect is already disconnected.";
 }
 
 bool Xbox360::power_ON()
@@ -108,18 +104,22 @@ bool Xbox360::power_ON()
         Sleep (3*1000);
         cout <<"\nScanning components...";
         Sleep (3*1000);
-        xboxInfo();
+        consoleInfo();
+        kinect.kinectInfo();
         Sleep (3*1000);
         power = true;
-        cout << "\nYour Xbox 360 has been turned on."; 
+        cout << "\nYour Xbox 360 has been turned on.";
     }
     else
     {
         cout << "\nYour Xbox 360 is already turned on.\nRestarting..."; 
         power = false;
         power_ON();
-        cout << "Your Xbox 360 has been restarted!\n"; 
+        cout << "Your Xbox 360 has been restarted!\n";
     }
+    
+    motionSensing();
+
     return true;
 }
 
@@ -127,9 +127,9 @@ bool Xbox360::power_OFF()
 {
     if (power)
     {
-        power = false;
         cout << "\nShutting down Xbox 360. Please wait...";
         Sleep (3*1000);
+        power = false;
         cout << "\nYour Xbox 360 has been turned off."; 
     }
     else
@@ -137,6 +137,35 @@ bool Xbox360::power_OFF()
     return true;
 }
 
+void Xbox360::motionSensing()
+{
+    char op;
+    cout << "\nScanning Xbox 360 for motion sensing device...";
+    if (!kinect.getKinectConnected()) 
+    {
+        cout << "\nNone has been found. \nWould you like to connect your Xbox 360 to a Kinect device now? <Y/N>";
+        cin >> op;
+        if (toupper(op) == 'Y')
+        {
+            cout <<"\nConnecting kinect...";
+            connectsKinect();
+        }
+    }
+    else 
+    {
+        cout << "\nYour Xbox 360 is connected to a Kinect device. ";
+        kinect.kinectInfo();
+        cout << "\nWould you like to disconnect your Kinect from your Xbox 360? ";
+        cin >> op;
+        
+        if (toupper(op) == 'Y')
+        {
+            cout <<"\nDisconnecting kinect...";
+            disconnectsKinect();
+        }
+
+    }
+}
 
 ostream &operator<<(ostream &out, const Xbox360 &x)
 {
@@ -144,11 +173,10 @@ ostream &operator<<(ostream &out, const Xbox360 &x)
     if (x.power)
     {
         x.consoleInfo();
-        if (x.kinect)
-            out <<"\nKinect: ON";
-        else
-            out <<"\nKinect: OFF";
+        x.kinect.kinectInfo();
     }
+    else 
+        cout << "\nYour Xbox 360 is turned off.";
     return out;
 }
 
@@ -185,11 +213,4 @@ const Xbox360& Xbox360::operator=(const Xbox360 &x)
         games[i] = x.games[i];
 
     kinect = x.kinect;
-}
-
-bool Xbox360::operator==(const Xbox360 &x) const
-{
-    if (kinect != x.kinect)
-        return false;
-	return true;
 }

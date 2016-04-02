@@ -4,6 +4,7 @@
 #include <string>
 #include <ostream>
 #include "Console.h"
+#include "PSMove.h"
 using std::string;
 using std::ostream;
 
@@ -15,18 +16,16 @@ class PlayStation3 : public Console
         PlayStation3();
         PlayStation3(const PlayStation3 &);
         ~PlayStation3();
-        void psMove_ON();
-        void psMove_OFF();
-        bool getMove() const;
-        void psInfo() const;
+        void connectsPSMove();
+        void disconnectsPSMove();
         
         virtual bool power_ON();
         virtual bool power_OFF();
-    
-        bool operator==(const PlayStation3 &) const;
+        virtual void motionSensing();
+        
         const PlayStation3 &operator=(const PlayStation3 &); 
         
     private:    
-        bool psMove;
+        PSMove psMove;
 };
 #endif // PLAYSTATION3_H

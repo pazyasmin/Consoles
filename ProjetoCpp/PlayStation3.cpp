@@ -27,9 +27,11 @@ PlayStation3::PlayStation3()
     {
         controllers[i].setConnected(false);
         controllers[i].setWireless(false);
+        controllers[i].setPosXYZ(0,0,0);
     }
     
-    psMove = false;
+    psMove.setMoveConnected(false);
+    psMove.setMovePos(0,0,0);
 }
 
 PlayStation3::PlayStation3(const PlayStation3 &p)//: Console(static_cast<Console> (p))
@@ -65,37 +67,30 @@ PlayStation3::~PlayStation3()
     
 }
 
-bool PlayStation3::getMove() const
+void PlayStation3::connectsPSMove()
 {
-    return psMove;
-}
-
-void PlayStation3::psMove_ON()
-{
-     if(!psMove)
+     if(!psMove.getMoveConnected())
     {
-        psMove = true;
-        cout << "\nYour PlayStation Move has been turned on.";
+        cout << "\nFetching position...\nMapping coordinates...\n";
+        psMove.setMoveConnected(true);
+        cout << "\nYour PlayStation Move has been connected.";
     }
     else
-        cout << "\nYour PlayStation Move is already turned on.";
+        cout << "\nYour PlayStation Move is already connected.";
+    
+    psMove.moveInfo();
+
 }
 
-void PlayStation3::psMove_OFF()
+void PlayStation3::disconnectsPSMove()
 {
-     if(psMove)
+     if(psMove.getMoveConnected())
     {
-        psMove = false;
-        cout << "\nYour PlayStation Move has been turned off.";
+        psMove.setMoveConnected(false);
+        cout << "\nYour PlayStation Move has been disconnected.";
     }
     else
-        cout << "\nYour PlayStation Move is already turned off.";
-}
-
-void PlayStation3::psInfo() const
-{
-    consoleInfo();
-    cout <<"\nPS Move: " << boolalpha << getMove();
+        cout << "\nYour PlayStation Move is already disconnected.";
 }
 
 bool PlayStation3::power_ON()
@@ -107,7 +102,8 @@ bool PlayStation3::power_ON()
         Sleep (3*1000);
         cout <<"\nScanning components...";
         Sleep (3*1000);
-        psInfo();
+        consoleInfo();
+        psMove.moveInfo();
         Sleep (3*1000);
         power = true;
         cout << "\nYour PlayStation 3 has been turned on."; 
@@ -126,9 +122,9 @@ bool PlayStation3::power_OFF()
 {
     if (power)
     {
-        power = false;
         cout << "\nShutting down Xbox 360. Please wait...";
         Sleep (3*1000);
+        power = false;
         cout << "\nYour PlayStation 3 has been turned off."; 
     }
     else
@@ -136,6 +132,36 @@ bool PlayStation3::power_OFF()
     return true;
 }
 
+void PlayStation3::motionSensing()
+{
+    char op;
+    cout << "\nScanning PlayStation 3 for motion sensing device...";
+    if (!psMove.getMoveConnected())
+    {
+        cout << "\nNone has been found. \nWould you like to connect your PlayStation 3 to a PS Move device now? <Y/N>";
+        cin >> op;
+        if (toupper(op) == 'Y')
+        {
+            cout <<"\nConnecting PS Move...";
+            connectsPSMove();
+        }
+    }
+    else 
+    {
+        cout << "\nYour PlayStation 3 is connected to a PS Move device. ";
+        psMove.moveInfo();
+        cout << "\nWould you like to disconnect your PS Move from your PlayStation 3? ";
+        cin >> op;
+        
+        if (toupper(op) == 'Y')
+        {
+            cout <<"\nDisconnecting PS Move...";
+            disconnectsPSMove();
+        }
+
+    }
+    
+}
 
 ostream &operator<<(ostream &out, const PlayStation3 &p)
 {
@@ -143,13 +169,10 @@ ostream &operator<<(ostream &out, const PlayStation3 &p)
     if (p.power)
     {
         p.consoleInfo();
-        p.displayUsers();
-        p.displayGames();
-        if (p.psMove)
-            out <<"\nPS Move: ON";
-        else
-            out <<"\nPS Move: OFF";
+        p.psMove.moveInfo();
     }
+    else 
+        out << "\nYour PlayStation 3 is turned off.";
     return out;
 }
 
@@ -189,9 +212,3 @@ const PlayStation3& PlayStation3::operator=(const PlayStation3 &p)
     psMove = p.psMove;
 }
 
-bool PlayStation3::operator==(const PlayStation3 &p) const
-{
-    if (psMove != p.psMove)
-        return false;
-	return true;
-}

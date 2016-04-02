@@ -22,12 +22,13 @@ class Device
         virtual bool power_OFF() = 0;                       //Desligar
         
         void deviceInfo();
+        
         const Device &operator=(const Device &);            //Operador de atribuição
         bool operator==(const Device &) const;              //Operador de igualdade
         
     protected:
         const static int USB_PORTS = 2;                     //Máximo disponível de entradas USB
-        bool ethernetCard;                                       //Presença ou ausência de placa de rede no dispositivo (nem todo dispositivo possui) 
+        bool ethernetCard;                                  //Presença ou ausência de placa de rede no dispositivo (nem todo dispositivo possui) 
         bool power;                                         //Botão ligar
         string manufacturer;                                //Fabricante
         float intStorage;                                   //Armazenamento interno (é diferente dependendo do console)

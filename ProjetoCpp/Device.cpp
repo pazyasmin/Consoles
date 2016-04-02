@@ -5,11 +5,10 @@
 using namespace std;
 
 Device::Device()
-:power(false), manufacturer("Unknown"), intStorage(0.00) 
+:power(false), manufacturer(" "), intStorage(0.00), ethernetCard(false)
 {
     for (int i = 0; i < USB_PORTS; i++)
         extStorage[i] = 0;
-    ethernetCard  = false;
 }
 
 Device::Device(const Device &dev) 

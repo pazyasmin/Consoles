@@ -22,9 +22,8 @@ class Console : public Device
         Console(const Console &);
         Console (const int &, const int &, const int &);
         ~Console();
-//        bool getInternet();
-//        void setInternet (bool);
-        void insertController(const Controller &, unsigned short int);
+        void connectToInternet();
+        void insertController(unsigned short int);
         void removeController(unsigned short int);
         void installGame(const Game &);                    
         void uninstallGame();                   
@@ -42,6 +41,10 @@ class Console : public Device
         void consoleInfo() const;                           
         void update();                                 
         void play(); 
+        
+        virtual bool power_ON();
+        virtual bool power_OFF();
+        virtual void motionSensing() = 0;
         
         const Console &operator=(const Console &);              
 	    bool operator==(const Console &) const; 

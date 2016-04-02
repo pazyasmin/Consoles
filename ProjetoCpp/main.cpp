@@ -6,70 +6,54 @@
 
 using namespace std;
 
-void xboxMenu();
-void psMenu();
-int xbList();
-int psList();
+//char xboxMenu();
+//char psMenu();
+//int xbList();
+//int psList();
 
 int main(int argc, char **argv)
 {
-    const int n = 2;
+    const int n = 4;
     vector<Console *> vConsoles(n);
-    
+
     vConsoles[0] = new Xbox360();
-    bool xbox = vConsoles[0] -> power_ON();
-    cout << "\n\nYour Xbox 360 is ready!" << endl;
+    bool xbox1 = vConsoles[0] -> power_ON();
+    cout << "\n\nYour Xbox 360 (1) is ready!" << endl;
     
-    vConsoles[1] = new PlayStation3();
-    bool playstation = vConsoles[1] -> power_ON();
-    cout << "\n\nYour PlayStation 3 is ready!";
+    vConsoles[1] = new Xbox360();
+    bool xbox2 = vConsoles[1] -> power_ON();
+    cout << "\n\nYour Xbox 360 (2) is ready!" << endl;
+    
+    vConsoles[2] = new PlayStation3();
+    bool playstation1 = vConsoles[2] -> power_ON();
+    cout << "\n\nYour PlayStation 3 (1) is ready!";
+      
+    vConsoles[3] = new PlayStation3();
+    bool playstation2 = vConsoles[3] -> power_ON();
+    cout << "\n\nYour PlayStation 3 (2) is ready!";
+
    
     for(int i = 0; i < n; i++)
 	{
-        int op;
-        int op2;
-        do
+        
+    
+        for(int i = 0; i < n; i++)
         {
-        cout << "\nChoose one of the following: ";
-        cout << "\n1 - Xbox 360 \n2 - PlayStation 3 ";
-        cout << "\n> ";
-        cin >> op;
-        }while (op != 1 && op != 2);
-        
-        Xbox360 *xb = dynamic_cast < Xbox360 * > (vConsoles[i]);
-		PlayStation3 *ps = dynamic_cast < PlayStation3 * > (vConsoles[i]);
-        
-            if(xb && xbox && op == 1)
-            {
-                do
-                {   Game jogo;
-                    xboxMenu();
-                    cin >> op1;
-                    
-                    switch (op1)
-                    {
-                        case 1:
-                            xb->power_OFF();
-                        case 2:
-                            xb->play();
-                            break;
-                        case 3:
-                            int op = xbList();
-                            if (op == 1) Game jogo("Halo", "Xbox 360", 45.00);
-                            if (op == 2) Game jogo("Halo 5", "Xbox 360", 60.90);
-                            if (op == 3) Game jogo("Gears of War", "Xbox 360", 50.14);
-                            if (op == 4) Game jogo("Dead Rising 3", "Xbox 360", 51.30);
-                            xb->installGame(jogo);
-                            break;
-                        default:
-                            cout << "\n\nError. Enter a valid option. ";
-                    }
-                }while (op1 != 0); 
-            }
+            
+            Xbox360 *xb = dynamic_cast < Xbox360 * > (vConsoles[i]);
+            PlayStation3 *ps = dynamic_cast < PlayStation3 * > (vConsoles[i]);
+            
+                if(xb && xbox)
+                {
+
+                }
+        }
     }
 }
-void xboxMenu()
+/*
+char xboxMenu()
 {
+    char op;
     cout << "\n\t-Xbox 360-\n";
     cout << "\nMenu";
     cout << "\nChoose one of the following:\n";
@@ -92,10 +76,13 @@ void xboxMenu()
     cout << "\n15. Turn on kinect";
     cout << "\n16. Turn off kinect";
     cout <<"\n > ";
+    cin >> op;
+    return op;
 }
 
-void psMenu()
+char psMenu()
 {
+    char op;
     cout << "\n\t-PlayStation 3-\n";
     cout << "\nMenu";
     cout << "\nChoose one of the following:\n";
@@ -118,6 +105,8 @@ void psMenu()
     cout << "\n15. Turn on PS Move";
     cout << "\n16. Turn off PS Move";
     cout <<"\n > ";
+    cin >> op;
+    return op;
 }
 
 int xbList()
@@ -155,7 +144,7 @@ int psList()
 
 
 
-/*    if (op == 1) 
+   if (op == 1) 
     {   
         ("Bayonetta", "PlayStation 3", 120.31);
 
@@ -167,4 +156,32 @@ int psList()
         return ("Heavy Rain", "PlayStation 3", 70.33);
     if (op == 4) 
         return ("God of War", "PlayStation 3", 40.78);
-}*/
+}
+
+
+    do
+                {   Game jogo;
+                    xboxMenu();
+                    cin >> op1;
+                    
+                    switch (op1)
+                    {
+                        case 1:
+                            xb->power_OFF();
+                        case 2:
+                            xb->play();
+                            break;
+                        case 3:
+                            int op = xbList();
+                            if (op == 1) Game jogo("Halo", "Xbox 360", 45.00);
+                            if (op == 2) Game jogo("Halo 5", "Xbox 360", 60.90);
+                            if (op == 3) Game jogo("Gears of War", "Xbox 360", 50.14);
+                            if (op == 4) Game jogo("Dead Rising 3", "Xbox 360", 51.30);
+                            xb->installGame(jogo);
+                            break;
+                        default:
+                            cout << "\n\nError. Enter a valid option. ";
+                    }
+            
+
+*/

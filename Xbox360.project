@@ -108,5 +108,9 @@
     <File Name="ProjetoCpp/Controller.cpp"/>
     <File Name="ProjetoCpp/PlayStation3.cpp"/>
     <File Name="ProjetoCpp/PlayStation3.h"/>
+    <File Name="ProjetoCpp/Kinect.cpp"/>
+    <File Name="ProjetoCpp/Kinect.h"/>
+    <File Name="ProjetoCpp/PSMove.cpp"/>
+    <File Name="ProjetoCpp/PSMove.h"/>
   </VirtualDirectory>
 </CodeLite_Project>

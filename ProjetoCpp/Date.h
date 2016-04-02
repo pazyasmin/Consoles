@@ -12,7 +12,9 @@ class Date
         Date(int, int, int );
         Date();
         ~Date();
-        int validateDay(int) const;
+        int validateDay(int, int, int) const;
+        int validateMonth(int) const;
+        int validateYear(int) const;
         void timeNow();
         void displayDate();
     private:

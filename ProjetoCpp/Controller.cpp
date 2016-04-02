@@ -4,24 +4,22 @@ using namespace std;
 
 Controller::Controller(): wireless(false), connected(false)
 {
-    
+    setPosXYZ(0, 0, 0);
+
 }
 
 Controller::Controller(const Controller &c) 
 {  
-   wireless = c.wireless;
-   connected = c.connected;
+    wireless = c.wireless;
+    connected = c.connected;
+    posXYZ.X = c.posXYZ.X; 
+    posXYZ.Y = c.posXYZ.Y; 
+    posXYZ.Z = c.posXYZ.Z; 
+
 }
 
 Controller::~Controller() 
 {
-       
-}
-
-void Controller::setWireless(bool w)
-{
-    wireless = w;
-    
 }
 
 bool Controller::getWireless()
@@ -29,35 +27,32 @@ bool Controller::getWireless()
     return wireless;
 }
 
-void Controller::setConnected(bool c)
-{
-    connected = c;
-}
-
 bool Controller::getConnected()
 {
     return connected;
 }
 
-ostream &operator<<(ostream &out, const Controller &c)
+Position Controller::getPosXYZ()
 {
-    out << "\nWireless: " << boolalpha << c.wireless;
-    return out;
+    return posXYZ;
 }
 
-const Controller& Controller::operator=(const Controller &c)
+void Controller::setConnected(bool con)
 {
-    wireless = c.wireless;
-    connected = c.connected;
+    connected = con;
 }
 
-bool Controller::operator==(const Controller &c) const
+void Controller::setWireless(bool wir)
 {
-    if(connected != c.connected)
-        return false;
-    if(wireless != c.wireless)
-        return false;
-    return true;
+    wireless = wir;
+    
+}
+
+void Controller::setPosXYZ(int x, int y, int z)
+{
+    posXYZ.X = x;
+    posXYZ.Y = y;
+    posXYZ.Z = z;
 }
 
 
