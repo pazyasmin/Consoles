@@ -79,7 +79,8 @@ void Xbox360::connectsKinect()
     }
     else
         cout << "\nYour kinect is already connected.";
-
+    
+    kinect.setKinectPos(rand()%100, rand()%100, rand()%100);
     kinect.kinectInfo();
 }
 

@@ -9,6 +9,9 @@ Game::Game()
 }    
 Game::Game(const string &t, const string &p, const float &s)
 {
+    title = t;
+    platform = p;
+    size = s;
 }
 Game::Game(const Game &game)
 {

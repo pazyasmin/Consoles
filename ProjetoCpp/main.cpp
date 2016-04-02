@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 #include <vector>
 #include "Console.h"
@@ -14,41 +15,127 @@ using namespace std;
 int main(int argc, char **argv)
 {
     const int n = 4;
+    bool xbox[2];
+    bool playstation[2];
     vector<Console *> vConsoles(n);
 
     vConsoles[0] = new Xbox360();
-    bool xbox1 = vConsoles[0] -> power_ON();
+    xbox[0] = vConsoles[0] -> power_ON();
     cout << "\n\nYour Xbox 360 (1) is ready!" << endl;
     
     vConsoles[1] = new Xbox360();
-    bool xbox2 = vConsoles[1] -> power_ON();
+    xbox[1] = vConsoles[1] -> power_ON();
     cout << "\n\nYour Xbox 360 (2) is ready!" << endl;
     
     vConsoles[2] = new PlayStation3();
-    bool playstation1 = vConsoles[2] -> power_ON();
+    playstation[0] = vConsoles[2] -> power_ON();
     cout << "\n\nYour PlayStation 3 (1) is ready!";
       
     vConsoles[3] = new PlayStation3();
-    bool playstation2 = vConsoles[3] -> power_ON();
+    playstation[1] = vConsoles[3] -> power_ON();
     cout << "\n\nYour PlayStation 3 (2) is ready!";
 
-   
     for(int i = 0; i < n; i++)
 	{
-        
-    
-        for(int i = 0; i < n; i++)
+        char op;
+        Xbox360 *xb = dynamic_cast < Xbox360 * > (vConsoles[i]);
+        PlayStation3 *ps = dynamic_cast < PlayStation3 * > (vConsoles[i]);
+            
+        if(xb)
         {
-            
-            Xbox360 *xb = dynamic_cast < Xbox360 * > (vConsoles[i]);
-            PlayStation3 *ps = dynamic_cast < PlayStation3 * > (vConsoles[i]);
-            
-                if(xb && xbox)
-                {
+            if (xbox[i])
+                cout << "\nThe console Xbox "<< i+1 <<" is on.";
+            else
+            {
+                char op2;
+                cout << "\nThe console Xbox "<< i+1 <<" is off.\nWould you like to turn it on? ";
+                if (toupper(op2) == 'Y')
+                    vConsoles[i]-> power_ON();
+                else
+                    continue;
+                        
+                cout << endl;
+            }
+            char op1;
+            cout << "\nWould you like to update console " << i+1 << "? <Y/N> ";
+            cin >> op1;
 
-                }
+            if (toupper(op1) == 'Y')
+            {
+                vConsoles[i]-> update();
+                vConsoles[i]-> consoleInfo();
+            }
+            cout << endl;
+            cout << endl;
+            
+            char op2;
+        
+            cout <<"\nWould you like to connect a motion sensing device to your console? <Y/N>";
+            cin >> op2;
+            if (toupper(op2) == 'Y')
+                xb->connectsKinect();
+            
+            cout <<"\nWould you like to disconnect the motion sensing device from your console? <Y/N>";
+            cin >> op2;
+            if (toupper(op2) == 'Y')
+                xb->disconnectsKinect();
+            cout << endl;
+            
         }
+        
+        if(ps)
+        {   
+            if (playstation[i-1])
+            cout << "\nThe console PlayStation 3"<< i-1 <<" is on.";
+            else
+            {
+                char op2;
+                cout << "\nThe console PlayStation 3 "<< i-1 <<" is off.\nWould you like to turn it on? ";
+                if (toupper(op2) == 'Y')
+                    vConsoles[i]-> power_ON();
+                else
+                    continue;
+                        
+                cout << endl;
+            }
+            char op1;
+            cout << "\nWould you like to update console " << i-1 << "? <Y/N> ";
+            cin >> op1;
+
+            if (toupper(op1) == 'Y')
+                vConsoles[i]-> update();
+            cout << endl;
+            
+            char op2;
+            cout <<"\nWould you like to connect a motion sensing device to your console? <Y/N>";
+            cin >> op2;
+            if (toupper(op2) == 'Y')
+                ps->connectsPSMove();
+            
+            cout <<"\nWould you like to disconnect the motion sensing device from your console? <Y/N>";
+            cin >> op2;
+            if (toupper(op2) == 'Y')
+            {
+                ps->disconnectsPSMove();
+            }        
+
+        }
+        
+        cout << "\n\nWould you like to turn off console "<< i-1 << " now? <y/n> ";
+        cin >> op;
+        
+        if (toupper(op) == 'Y')
+        {
+            cout <<"\nTurning off console...";
+            vConsoles[i]->power_OFF();
+        }
+            
+
     }
+    vConsoles.clear();
+    cout << "The program will be terminated. Press any key to proceed...\n" << endl;
+    system ("Pause");
+    return 0;
 }
 /*
 char xboxMenu()

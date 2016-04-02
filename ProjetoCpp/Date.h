@@ -16,7 +16,7 @@ class Date
         int validateMonth(int) const;
         int validateYear(int) const;
         void timeNow();
-        void displayDate();
+        void displayDate() const;
     private:
         int day;
         int month;

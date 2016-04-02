@@ -1,5 +1,6 @@
 #include "PlayStation3.h"
 #include <iostream>
+#include <cstdlib>
 #include <windows.h>
 
 using namespace std;
@@ -77,7 +78,7 @@ void PlayStation3::connectsPSMove()
     }
     else
         cout << "\nYour PlayStation Move is already connected.";
-    
+    psMove.setMovePos(rand()%100, rand()%100, rand()%100);
     psMove.moveInfo();
 
 }
@@ -115,6 +116,7 @@ bool PlayStation3::power_ON()
         power_ON();
         cout << "\nYour PlayStation 3 has been restarted."; 
     }
+    motionSensing();
     return true;
 }
 

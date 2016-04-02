@@ -21,14 +21,14 @@ Console::Console(): platform(" "), softwareVersion(1.0), releaseDate(1,1,1900), 
 
 Console::Console(const Console &c)
 {  
-/*
+
     power = c.power;
     manufacturer = c.manufacturer;
     intStorage = c.intStorage;
     for (int i = 0; i < USB_PORTS; i++)
         extStorage[i] = c.extStorage[i];
     ethernetCard = c.ethernetCard;
-*/    
+  
     platform = c.platform;
     softwareVersion = c.softwareVersion;
     releaseDate = c.releaseDate;
@@ -312,8 +312,6 @@ void Console::consoleInfo() const
         
         cout <<"\nPlatform: "<< platform;
         cout <<"\nSoftware version: " << softwareVersion;
-        cout <<"\nRelease Date:  "<< releaseDate;
-        cout <<"\nLast updated: "<< lastUpdated;
         cout <<"\nTotal Space: "<< storage[0];
         cout <<"\nUsed Space: "<< storage[1];
         cout <<"\nFree Space: "<< storage[2];
@@ -360,8 +358,6 @@ ostream &operator<<(ostream &out, const Console &cons)
     {
         out <<"\nPlatform: "<< cons.platform;
         out <<"\nSoftware version: " << cons.softwareVersion;
-        out <<"\nRelease Date:  "<< cons.releaseDate;
-        out <<"\nLast updated: "<< cons.lastUpdated;
         out <<"\nTotal Space: "<< cons.storage[0];
         out <<"\nUsed Space: "<< cons.storage[1];
         out <<"\nFree Space: "<< cons.storage[2];

@@ -20,7 +20,6 @@ class Console : public Device
     public:
         Console();
         Console(const Console &);
-        Console (const int &, const int &, const int &);
         ~Console();
         void connectToInternet();
         void insertController(unsigned short int);
@@ -42,8 +41,8 @@ class Console : public Device
         void update();                                 
         void play(); 
         
-        virtual bool power_ON();
-        virtual bool power_OFF();
+        virtual bool power_ON() = 0;
+        virtual bool power_OFF() = 0;
         virtual void motionSensing() = 0;
         
         const Console &operator=(const Console &);              

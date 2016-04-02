@@ -1,4 +1,5 @@
 #include "Date.h"
+#include <iostream>
 #include <stdlib.h>
 #include <ctime>
 using  namespace std;
@@ -45,8 +46,15 @@ void Date::timeNow()
     min = pt->tm_min;
 }
 
-void Date::displayDate()
+void Date::displayDate() const
 {
     cout << day << "/" << month << "/" << year <<"\n";
     cout << hour <<":" << min << endl;
+}
+
+ostream &operator<<(ostream &out, const Date &d)
+{
+    out << d.day << "/" << d.month << "/" << d.year <<"\n";
+    out << d.hour <<":" << d.min << endl;
+    return out;
 }
